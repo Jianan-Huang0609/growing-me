@@ -6,7 +6,7 @@
   <meta name="description" content="Growing Me 两层人生地图：从长期方向到本月重点与真实证据。">
   <meta name="theme-color" content="#17231f">
   <title>Growing Me · 月度人生地图</title>
-  <link rel="stylesheet" href="styles.css?v=1.2.0-20260918d">
+  <link rel="stylesheet" href="styles.css?v=1.2.1-20260919">
 </head>
 <body>
   <header class="topbar">
@@ -113,6 +113,12 @@
       <section id="roomFocus" class="room-focus" aria-label="放大的房间" hidden>
         <button class="button room-focus-back" id="exitRoomButton" type="button">← 回到这扇门前</button>
         <div id="roomFocusContent" class="room-focus-content"></div>
+        <div class="room-exit-transition" aria-hidden="true">
+          <div class="room-exit-arch">
+            <span class="room-exit-leaf room-exit-leaf-left"></span>
+            <span class="room-exit-leaf room-exit-leaf-right"></span>
+          </div>
+        </div>
       </section>
       <button class="room-overview-button" id="roomOverviewButton" type="button" hidden><span>方向总览</span><strong></strong></button>
     </section>
@@ -303,6 +309,6 @@
 
   <script src="model.js?v=1.2.0-20260918b"></script>
   <script src="ledger.js?v=1.0.0-20260917"></script>
-  <script src="app.js?v=1.2.0-20260918d"></script>
+  <script src="app.js?v=1.2.1-20260919"></script>
 </body>
 </html>
