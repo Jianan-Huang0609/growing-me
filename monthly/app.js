@@ -51,6 +51,7 @@
   let pendingImport = null;
   let focusedRoomId = null;
   let corridorEntered = false;
+  let corridorLeaving = false;
   let corridorActiveId = null;
   let corridorFrame = 0;
   let corridorSavedScrollY = 0;
@@ -98,15 +99,18 @@
       [604,222,30,.92],[642,232,40,.86],[680,254,52,.88],[710,282,58,.76],[670,298,38,.84],[626,276,18,.92],
       [316,318,-54,.78],[352,342,-38,.86],[392,316,-18,.9],[430,338,-4,.82],[470,300,14,.92],[518,310,-8,.88],[564,330,26,.84],[610,350,42,.78],
       [408,172,-28,.7],[486,162,8,.7],[554,166,22,.72],[602,190,35,.68],[366,246,-24,.72],[444,250,5,.7],[542,248,18,.72],[650,262,38,.68]
-    ].map(([x,y,rotate,scale], index) => `<ellipse class="tree-leaf tree-leaf-${(index % 3) + 1}" cx="${x}" cy="${y}" rx="${19 * scale}" ry="${8 * scale}" transform="rotate(${rotate} ${x} ${y})"></ellipse>`).join('');
+    ].map(([x,y,rotate,scale], index) => {
+      const halfLength = 19 * scale;
+      const halfWidth = 8 * scale;
+      return `<path class="tree-leaf tree-leaf-${(index % 3) + 1}" d="M ${x - halfLength} ${y} C ${x - halfLength * .45} ${y - halfWidth * 1.3}, ${x + halfLength * .4} ${y - halfWidth * .8}, ${x + halfLength} ${y} C ${x + halfLength * .3} ${y + halfWidth * .75}, ${x - halfLength * .35} ${y + halfWidth * 1.15}, ${x - halfLength} ${y} Z" transform="rotate(${rotate} ${x} ${y})"></path>`;
+    }).join('');
     const scenes = {
-      route: `<svg class="route-map" viewBox="0 0 1000 720" preserveAspectRatio="none"><path d="M70 650 C145 610 128 520 235 500 S360 430 405 365 S530 330 575 250 S720 230 760 145 S875 120 945 55"></path>${[[70,650],[235,500],[405,365],[575,250],[760,145],[945,55]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="10"></circle>`).join('')}</svg><div class="route-signs">${eightPieces}</div>`,
-      gallery: `<div class="gallery-film">${eightPieces}</div><div class="gallery-lighthouse"><span></span></div><div class="gallery-beam"></div>`,
-      constellation: `<div class="lab-instrument"><span class="lab-corner lab-corner-a"></span><span class="lab-corner lab-corner-b"></span><svg class="lab-circuit" viewBox="0 0 1000 720" preserveAspectRatio="none"><path d="M80 124 H250 V244 H390 M610 244 H750 V124 H920"></path><path d="M80 596 H250 V478 H390 M610 478 H750 V596 H920"></path><path d="M164 316 H330 M670 316 H836 M164 404 H330 M670 404 H836"></path>${[[80,124],[250,244],[390,244],[610,244],[750,124],[920,124],[80,596],[250,478],[390,478],[610,478],[750,596],[920,596],[164,316],[330,316],[670,316],[836,316],[164,404],[330,404],[670,404],[836,404]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="7"></circle>`).join('')}</svg><div class="lab-core"><span class="lab-orbit lab-orbit-one"></span><span class="lab-orbit lab-orbit-two"></span><strong>?</strong><small>LEARN · TEST · SYNTHESIZE</small></div><div class="lab-modules">${eightPieces}</div><div class="lab-readout"><span>QUESTION / JUDGMENT</span><i></i><i></i><i></i></div></div><div class="lab-bench"><span class="lab-bench-line"></span><div class="lab-controls"><i></i><i></i><i></i><i></i><i></i></div></div>`,
-      vitals: `<svg class="life-tree botanical-tree" viewBox="0 0 760 760" preserveAspectRatio="xMidYMid meet">
+      route: `<svg class="route-map" viewBox="0 0 1000 720" preserveAspectRatio="none" role="presentation"><g class="route-relief"><path d="M0 612 C123 561 172 566 269 497 C357 435 401 476 500 368 C570 291 629 336 731 208 C805 115 856 165 1000 40 V720 H0Z"></path><path d="M0 665 C121 614 178 625 285 551 C384 485 430 500 528 415 C611 348 654 366 768 251 C850 174 906 188 1000 113 V720 H0Z"></path></g><g class="route-contours"><path d="M35 665 C182 646 217 558 300 540 C435 509 473 426 539 399 C664 350 696 276 795 234 C884 195 914 160 990 141"></path><path d="M9 589 C156 560 206 492 274 470 C419 423 441 357 512 329 C636 279 683 212 771 176 C855 143 921 112 1002 87"></path><path d="M0 516 C133 492 171 443 264 404 C379 356 426 302 514 256 C627 196 687 168 758 123 C831 80 911 54 984 22"></path><path d="M0 708 C138 668 209 629 299 598 C434 552 479 504 553 474 C679 421 723 350 808 310 C886 273 927 235 1000 204"></path></g><path class="route-trail-shadow" d="M78 645 C168 616 189 562 267 541 S396 489 425 430 S532 396 568 316 S687 285 738 210 S864 170 929 89"></path><path class="route-trail" d="M78 645 C168 616 189 562 267 541 S396 489 425 430 S532 396 568 316 S687 285 738 210 S864 170 929 89"></path><g class="route-waypoints">${[[78,645],[267,541],[425,430],[568,316],[738,210],[929,89]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="5"></circle>`).join('')}</g></svg><div class="route-cartouche"><span>FIELD NOTES / 01</span><strong>THE LONG ASCENT</strong><small>每一段都留下可以辨认的路标</small></div><div class="route-altitude"><span>01 / BASE</span><i></i><span>08 / HORIZON</span></div><div class="route-signs">${eightPieces}</div>`,
+      gallery: `<div class="gallery-molding"></div><div class="gallery-works"><figure class="gallery-work gallery-work-one"><span></span><figcaption>STUDY · 01</figcaption></figure><figure class="gallery-work gallery-work-two"><span></span><figcaption>STUDY · 02</figcaption></figure><figure class="gallery-work gallery-work-three"><span></span><figcaption>STUDY · 03</figcaption></figure></div><div class="gallery-film">${eightPieces}</div><div class="gallery-lighthouse"><span class="gallery-lantern"></span><span class="gallery-tower"></span></div><div class="gallery-beam"></div><div class="gallery-caption"><span>ARCHIVE / 02</span><strong>作品、观看者与回声</strong></div>`,
+      constellation: `<div class="lab-instrument"><span class="lab-corner lab-corner-a"></span><span class="lab-corner lab-corner-b"></span><div class="lab-plate-label"><span>FIG. 03 / APPLIED INTELLIGENCE</span><strong>INPUT → MODEL → PRACTICE</strong></div><svg class="lab-circuit" viewBox="0 0 1000 720" preserveAspectRatio="none" role="presentation"><path d="M84 150 H250 V256 H394 M606 256 H758 V150 H918"></path><path d="M84 570 H250 V464 H394 M606 464 H758 V570 H918"></path><path d="M140 346 H394 M606 346 H860 M140 374 H394 M606 374 H860"></path>${[[84,150],[250,256],[394,256],[606,256],[758,150],[918,150],[84,570],[250,464],[394,464],[606,464],[758,570],[918,570],[140,346],[860,346],[140,374],[860,374]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="5"></circle>`).join('')}</svg><div class="lab-core"><span class="lab-core-cross"></span><strong>AI</strong><small>APPLIED CORE</small></div><div class="lab-modules">${eightPieces}</div><div class="lab-readout"><span>LEARN / TEST / SYNTHESIZE</span><i></i><i></i><i></i></div></div><div class="lab-bench"><span class="lab-bench-line"></span><div class="lab-controls"><i></i><i></i><i></i><i></i><i></i></div></div>`,
+      vitals: `<div class="botanical-plate"><span class="botanical-plate-index">PLATE IV / LIVING SYSTEMS</span><span class="botanical-plate-rule"></span><span class="botanical-plate-caption">ROOT · STRENGTH · CROWN</span></div><svg class="life-tree botanical-tree" viewBox="0 0 760 760" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <linearGradient id="treeTrunkGradient" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#4d3529"></stop><stop offset=".32" stop-color="#936c43"></stop><stop offset=".58" stop-color="#c49b61"></stop><stop offset=".8" stop-color="#735137"></stop><stop offset="1" stop-color="#382b24"></stop></linearGradient>
-          <linearGradient id="treeRootGradient" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#bd9865"></stop><stop offset=".52" stop-color="#775636"></stop><stop offset="1" stop-color="#3f3328"></stop></linearGradient>
+          <linearGradient id="treeTrunkGradient" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#38352c"></stop><stop offset=".33" stop-color="#62523c"></stop><stop offset=".62" stop-color="#80694b"></stop><stop offset=".82" stop-color="#584834"></stop><stop offset="1" stop-color="#38332a"></stop></linearGradient>
           <radialGradient id="treeHalo"><stop offset="0" stop-color="#b2ca83" stop-opacity=".18"></stop><stop offset=".64" stop-color="#6aaa78" stop-opacity=".09"></stop><stop offset="1" stop-color="#6aaa78" stop-opacity="0"></stop></radialGradient>
           <linearGradient id="treeCanopyGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a5ba75" stop-opacity=".19"></stop><stop offset=".55" stop-color="#598a68" stop-opacity=".24"></stop><stop offset="1" stop-color="#285d4a" stop-opacity=".05"></stop></linearGradient>
         </defs>
@@ -115,28 +119,29 @@
         <path class="tree-soil-line" d="M84 576 C253 562 488 568 732 581"></path>
         <g class="tree-soil-grain"><path d="M125 599 l22 -2 M195 617 l34 -3 M312 594 l24 1 M608 607 l33 2 M684 622 l21 -2"></path></g>
         <g class="tree-roots">
-          <path d="M473 533 C446 560 410 571 368 579 C293 592 241 609 119 663 C190 607 242 583 319 562 C386 546 433 528 461 506 Z"></path>
-          <path d="M486 543 C476 581 452 611 432 649 C417 677 407 707 390 743 C399 677 416 626 437 581 C448 556 457 532 466 517 Z"></path>
-          <path d="M512 545 C525 593 526 640 529 682 C531 710 536 731 543 754 C519 714 510 679 505 641 C499 601 489 561 480 537 Z"></path>
-          <path d="M533 529 C570 574 624 593 658 631 C688 665 711 684 744 706 C686 678 647 653 617 619 C583 587 551 579 520 554 Z"></path>
-          <path d="M459 535 C422 555 361 557 301 566 C227 576 165 586 91 618 C166 575 235 553 309 544 C377 536 423 522 453 512 Z"></path>
+          <path d="M484 561 C449 575 417 576 379 584 C308 599 243 621 151 663"></path>
+          <path d="M477 565 C443 589 421 613 404 650 C394 673 386 701 375 727"></path>
+          <path d="M501 568 C493 598 486 630 489 662 C491 694 498 721 509 744"></path>
+          <path d="M516 562 C543 582 579 590 615 615 C654 641 679 675 719 697"></path>
+          <path d="M479 558 C447 566 402 561 355 568 C273 578 191 597 109 628"></path>
+          <path d="M515 565 C541 579 558 598 571 624 C584 650 599 676 622 698"></path>
         </g>
-        <g class="tree-root-filaments"><path d="M244 608 C224 616 214 635 194 659 M310 586 C281 591 267 613 249 636 M426 649 C439 660 446 676 441 695 M524 676 C510 688 501 710 503 732 M638 632 C661 626 681 635 705 653 M584 598 C590 620 614 647 626 674"></path></g>
+        <g class="tree-root-filaments"><path d="M327 595 C310 605 298 619 281 641 M251 619 C233 618 214 627 195 646 M414 634 C428 648 431 666 427 688 M393 672 C378 685 368 702 358 721 M490 652 C478 668 470 686 468 708 M618 618 C641 611 664 617 685 637 M581 632 C584 650 590 669 605 686"></path></g>
         <g class="tree-canopy-wash"><path d="M275 292 C268 232 295 186 339 154 C361 106 427 96 472 120 C512 72 589 84 621 139 C682 148 711 212 688 263 C721 309 685 363 635 374 C600 421 532 425 489 400 C431 425 373 407 350 374 C303 374 267 339 275 292 Z"></path><path d="M319 261 C322 188 377 146 438 158 C475 120 544 120 573 164 C638 158 673 215 656 265 C684 310 641 344 594 341 C565 375 510 369 481 352 C434 380 375 356 361 328 C331 324 314 301 319 261 Z"></path></g>
-        <g class="tree-branches"><path d="M489 397 C466 354 423 321 386 281 C366 260 347 246 324 231"></path><path d="M505 365 C481 321 471 277 458 236 C447 198 433 173 417 150"></path><path d="M513 333 C522 285 547 245 571 207 C590 177 605 160 628 147"></path><path d="M528 390 C553 345 596 314 641 282 C665 264 680 250 693 226"></path><path d="M480 438 C442 413 409 398 367 385 C341 377 324 362 309 340"></path></g>
+        <g class="tree-branches"><path d="M493 408 C475 365 431 326 386 281 C366 260 347 246 324 231"></path><path d="M494 406 C494 373 484 334 469 288 C457 244 440 186 417 150"></path><path d="M500 404 C504 370 509 335 524 293 C539 251 574 187 628 147"></path><path d="M500 424 C533 363 587 321 641 282 C665 264 680 250 693 226"></path><path d="M486 447 C455 417 413 398 367 385 C341 377 324 362 309 340"></path></g>
         <g class="tree-twigs"><path d="M397 291 C373 278 346 277 310 270 M377 273 C362 250 354 228 346 205 M450 218 C430 211 410 199 393 177 M464 257 C471 220 484 183 495 139 M551 244 C553 213 556 188 572 155 M603 181 C624 182 646 195 666 207 M645 283 C662 293 678 307 699 313 M611 309 C621 331 627 342 646 355 M386 391 C370 408 350 416 330 422"></path></g>
-        <path class="tree-trunk" d="M447 567 C457 539 465 500 467 460 C470 425 472 388 485 354 C493 329 499 300 502 263 C505 286 513 310 515 334 C519 369 529 390 533 420 C538 452 535 484 544 511 C551 532 565 554 574 570 C546 579 523 581 507 577 C481 579 460 575 447 567 Z"></path>
-        <g class="tree-bark"><path d="M483 551 C490 507 480 475 489 431 C498 392 496 373 502 348 M506 546 C514 512 510 477 512 451 C515 418 506 399 510 374 M534 549 C522 522 525 492 527 467 M469 531 C477 516 480 502 478 489"></path><path d="M470 562 C478 566 484 568 493 567 M518 568 C527 567 535 564 542 561"></path></g>
+        <path class="tree-trunk" d="M478 571 C484 544 484 518 482 490 C479 464 484 438 491 397 C497 414 502 434 503 456 C503 482 509 505 513 531 C516 548 522 562 527 570 C516 575 506 575 497 571 C490 575 483 574 478 571 Z"></path>
+        <g class="tree-bark"><path d="M488 549 C492 516 487 489 490 463 C492 437 498 421 496 403 M505 546 C505 521 500 499 500 475 C499 452 498 439 500 429 M516 554 C511 538 510 522 510 508"></path><path d="M483 564 C490 567 496 568 501 566 M508 568 C516 567 521 564 524 563"></path></g>
         <g class="tree-leaves">${botanicalLeaves}</g>
         <g class="tree-leaf-sprigs"><path d="M358 214 q-15 -26 -39 -24 q10 23 39 24 M358 214 q-5 -29 11 -44 q9 23 -11 44 M600 235 q16 -27 43 -28 q-9 24 -43 28 M600 235 q4 -30 -15 -43 q-8 24 15 43 M370 351 q-19 -18 -40 -12 q17 18 40 12 M570 350 q15 -21 39 -20 q-11 23 -39 20"></path></g>
         <g class="tree-leaf-veins"><path d="M319 190 l36 24 M369 170 l-11 44 M643 207 l-43 28 M585 192 l15 43 M330 339 l40 12 M609 330 l-39 20"></path></g>
         <g class="tree-ground-sprouts"><path d="M275 582 C268 563 261 552 247 541 M275 582 C278 564 287 551 302 545 M653 588 C649 571 640 564 627 556 M653 588 C660 569 673 559 685 555"></path><path d="M247 541 q-18 -15 -31 -4 q11 14 31 4 M302 545 q18 -14 29 -2 q-11 13 -29 2 M627 556 q-17 -14 -27 -3 q10 13 27 3 M685 555 q16 -14 28 -3 q-10 13 -28 3"></path></g>
         <g class="tree-vital-nodes"><circle cx="417" cy="150" r="3.5"></circle><circle cx="628" cy="147" r="3.5"></circle><circle cx="309" cy="340" r="3.5"></circle></g>
       </svg>`,
-      book: `<div class="door-sequence">${Array.from({ length: 6 }, (_, index) => `<i style="--door-index:${index}"><span>${index + 1}</span></i>`).join('')}</div>`,
-      ledger: `<div class="bridge-ledger-lines"></div><div class="choice-bridge">${eightPieces}</div>`,
-      cabinet: `<div class="house-cutaway"><span class="house-roof"></span><div class="house-windows">${eightPieces}</div><span class="house-cabinet"></span></div>`,
-      album: `<svg class="family-links" viewBox="0 0 1000 720" preserveAspectRatio="none"><path d="M500 360 L275 205 M500 360 L715 195 M500 360 L790 470 M500 360 L260 520"></path></svg><div class="family-table"></div><div class="family-people">${Array.from({ length: 6 }, (_, index) => `<i style="--person-index:${index}"></i>`).join('')}</div><div class="album-stack"><i></i><i></i><i></i></div>`
+      book: `<div class="book-folio" aria-hidden="true"><span class="book-folio-rule"></span><span class="book-folio-title">THE SHARED LIFE</span><span class="book-folio-mark">VOLUME · 05</span></div><div class="door-sequence">${Array.from({ length: 5 }, (_, index) => `<i style="--door-index:${index}"><span>${String(index + 1).padStart(2, '0')}</span></i>`).join('')}</div><span class="book-ribbon"></span>`,
+      ledger: `<div class="bridge-ledger-lines"><span>01 / RESOURCES</span><span>02 / CHOICES</span></div><svg class="choice-bridge" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"><path class="bridge-ground" d="M58 419 H902"></path><path class="bridge-deck" d="M90 196 C270 183 364 183 480 187 C630 190 754 189 870 174"></path><path class="bridge-arch" d="M109 410 C261 250 370 222 480 222 C603 222 714 252 850 410"></path><path class="bridge-rail" d="M90 174 C270 161 364 161 480 165 C630 168 754 167 870 152"></path>${Array.from({ length: 9 }, (_, index) => `<path class="bridge-suspender" d="M${116 + index * 92} ${174 + Math.round(Math.abs(4 - index) * 2)} V${index === 0 || index === 8 ? 398 : Math.round(240 + Math.abs(4 - index) * 25)}"></path>`).join('')}<path class="bridge-water" d="M58 451 C132 447 186 447 258 451 S380 455 452 451 S574 447 646 451 S770 455 902 451 M58 469 C142 465 198 465 280 469 S414 473 480 469 S668 465 742 469 S836 473 902 469"></path><g class="bridge-measure">${Array.from({ length: 8 }, (_, index) => `<text x="${135 + index * 100}" y="${132 - Math.round(Math.abs(3.5 - index) * 2)}">${String(index + 1).padStart(2, '0')}</text>`).join('')}</g></svg><div class="ledger-seal">BALANCE <span>↗</span> POSSIBILITY</div>`,
+      cabinet: `<div class="house-cutaway"><span class="house-roof"></span><span class="house-chimney"></span><div class="house-windows">${eightPieces}</div><span class="house-stair"></span><span class="house-cabinet"></span><span class="house-foundation"></span></div><span class="house-drawing-label">THE ROOMS WE KEEP</span>`,
+      album: `<svg class="family-links" viewBox="0 0 1000 720" preserveAspectRatio="none"><path d="M300 217 C386 242 432 290 506 348 M735 210 C656 243 598 284 534 347 M768 487 C683 459 615 426 542 386 M274 526 C374 488 438 434 496 389"></path><circle cx="300" cy="217" r="3"></circle><circle cx="735" cy="210" r="3"></circle><circle cx="768" cy="487" r="3"></circle><circle cx="274" cy="526" r="3"></circle></svg><div class="family-table"><span class="family-table-grain"></span><span class="family-table-vase"></span></div><div class="family-people">${Array.from({ length: 6 }, (_, index) => `<i style="--person-index:${index}"><span></span></i>`).join('')}</div><div class="album-stack"><i></i><i></i><i></i></div><span class="album-caption">A TABLE, HELD IN COMMON</span>`
     };
     return `<div class="scene-metaphor scene-metaphor-${layout}" aria-hidden="true">${scenes[layout] || ''}</div>`;
   }
@@ -765,7 +770,9 @@
       if (!nearest || distance < nearest.distance) nearest = { index, dimensionId, distance, side, arriving };
     });
 
-    corridorActiveId = nearest && nearest.distance <= 0.052 ? nearest.dimensionId : null;
+    const atCorridorEnd = progress >= 0.965;
+    stage.classList.toggle('is-at-end', atCorridorEnd);
+    corridorActiveId = !atCorridorEnd && nearest && nearest.distance <= 0.052 ? nearest.dimensionId : null;
     corridorDoorButtons.forEach((button, dimensionId) => {
       const active = dimensionId === corridorActiveId;
       const dimension = data.dimensions.find(item => item.id === dimensionId);
@@ -787,8 +794,15 @@
 
     if (!nearest) return;
     const dimension = data.dimensions[nearest.index];
-    byId('corridorRoomCount').textContent = `房间 · ${String(nearest.index + 1).padStart(2, '0')} / ${String(data.dimensions.length).padStart(2, '0')}`;
-    byId('corridorRoomTitle').textContent = corridorActiveId ? `现在可以进入「${dimension.title}」` : `正在靠近「${dimension.title}」`;
+    byId('corridorRoomCount').textContent = atCorridorEnd
+      ? `长廊尽头 · ${String(data.dimensions.length).padStart(2, '0')} / ${String(data.dimensions.length).padStart(2, '0')}`
+      : `房间 · ${String(nearest.index + 1).padStart(2, '0')} / ${String(data.dimensions.length).padStart(2, '0')}`;
+    byId('corridorRoomTitle').textContent = atCorridorEnd
+      ? '前方是回到人生总盘的门'
+      : corridorActiveId ? `现在可以进入「${dimension.title}」` : `正在靠近「${dimension.title}」`;
+    byId('corridorInstruction').textContent = atCorridorEnd
+      ? '继续滚动，走到长廊尽头'
+      : '滚动或按方向键前行；门显色后，点击推门进入';
     if (Math.abs(corridorTargetProgress - corridorCurrentProgress) > 0.00015 || Math.abs(glanceTarget - corridorLook) > 0.002) scheduleCorridorUpdate();
   }
   function roomJourneyRange() {
@@ -825,6 +839,7 @@
     const phase = roomJourneyCurrent * lastStep;
     const nearestStep = Math.max(0, Math.min(lastStep, Math.round(phase)));
     const activeStep = nearestStep;
+    stage.classList.toggle('is-monthly-or-exit', activeStep >= monthlyStep);
     const layout = stage.dataset.layout || 'gallery';
     const hero = stage.querySelector('.room-hero');
     const heroPresence = clamp(1 - phase / 0.88);
@@ -911,6 +926,9 @@
         rotate = side * 4 + distance * 2.2;
       }
 
+      // Let each room's opening illustration read clearly; the eight directions
+      // remain available through the waypoints and appear as scrolling begins.
+      opacity *= 0.08 + 0.92 * clamp(phase / 0.7);
       node.style.setProperty('--node-x', `${x.toFixed(3)}vw`);
       node.style.setProperty('--node-y', `${y.toFixed(3)}vh`);
       node.style.setProperty('--node-scale', scale.toFixed(4));
@@ -998,6 +1016,62 @@
       scheduleCorridorUpdate();
     };
     if (prefersReducedMotion()) finish(); else setTimeout(finish, 760);
+  }
+  function resetCorridorEntrance() {
+    corridorEntered = false;
+    corridorActiveId = null;
+    corridorTargetProgress = 0;
+    corridorCurrentProgress = 0;
+    corridorLook = 0;
+    const stage = byId('corridorStage');
+    const entry = byId('corridorEntry');
+    stage.classList.remove('has-entered', 'is-entering-room');
+    stage.classList.remove('is-at-end');
+    entry.hidden = false;
+    entry.classList.remove('is-opening');
+    entry.removeAttribute('aria-hidden');
+    byId('corridorMap').hidden = true;
+    byId('corridorMapButton').setAttribute('aria-expanded', 'false');
+  }
+  function exitCorridorToGrid() {
+    if (corridorLeaving || activeView !== 'rooms' || focusedRoomId) return;
+    corridorLeaving = true;
+    const curtain = byId('corridorReturnCurtain');
+    const finish = () => {
+      resetCorridorEntrance();
+      currentDimensionId = null;
+      dimensionLayer = 'directions';
+      render();
+      applyActiveView('grid');
+      byId('gridView').scrollIntoView({ behavior: 'instant', block: 'start' });
+    };
+    const release = () => {
+      curtain.classList.remove('is-closing', 'is-opening');
+      curtain.hidden = true;
+      corridorLeaving = false;
+      document.querySelector('.view-button[data-view="grid"]')?.focus({ preventScroll: true });
+    };
+    if (prefersReducedMotion()) { finish(); release(); return; }
+    curtain.hidden = false;
+    curtain.getBoundingClientRect();
+    curtain.classList.add('is-closing');
+    setTimeout(() => {
+      finish();
+      curtain.classList.remove('is-closing');
+      curtain.classList.add('is-opening');
+      setTimeout(release, 760);
+    }, 760);
+  }
+  function revisitCorridorEntrance() {
+    if (corridorLeaving || focusedRoomId) return;
+    if (prefersReducedMotion()) {
+      byId('corridorStage').scrollIntoView({ behavior: 'instant', block: 'start' });
+      (byId('corridorDoors').querySelector('button') || byId('corridorStage')).focus({ preventScroll: true });
+      return;
+    }
+    resetCorridorEntrance();
+    window.scrollTo({ top: corridorMetrics().top, behavior: 'smooth' });
+    setTimeout(() => byId('enterCorridorButton').focus({ preventScroll: true }), 650);
   }
   function travelToRoom(dimensionId) {
     const index = data.dimensions.findIndex(item => item.id === dimensionId);
@@ -1524,7 +1598,9 @@
   }));
   byId('backToRootButton').addEventListener('click', () => { currentDimensionId = null; dimensionLayer = 'directions'; render(); });
   byId('enterCorridorButton').addEventListener('click', () => enterCorridor());
-  byId('corridorGridButton').addEventListener('click', () => applyActiveView('grid', { move: true }));
+  byId('corridorGridButton').addEventListener('click', exitCorridorToGrid);
+  byId('corridorOutroReturnButton').addEventListener('click', exitCorridorToGrid);
+  byId('corridorOutroRevisitButton').addEventListener('click', revisitCorridorEntrance);
   byId('corridorMapButton').addEventListener('click', () => {
     const map = byId('corridorMap');
     map.hidden = !map.hidden;
@@ -1744,6 +1820,7 @@
     } catch (error) { showToast(error.message); }
   });
   document.addEventListener('keydown', event => {
+    if (corridorLeaving) { event.preventDefault(); return; }
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
     if (byId('todoDialog').open || byId('importDialog').open || byId('directionWorkbenchDialog').open || byId('compassDialog').open) return;
