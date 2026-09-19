@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/growing-me/life-grid-monthly.schema.json",
+  "title": "Growing Me Monthly Life Grid",
+  "type": "object",
+  "required": ["meta", "center", "dimensions"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title", "version", "active_period"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "version": { "const": "1.2.0-monthly" },
+        "revision": { "type": "integer", "minimum": 0 },
+        "updated_at": { "type": "string" },
+        "visibility": { "enum": ["private", "shared", "demo"] },
+        "active_period": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$" }
+      },
+      "additionalProperties": true
+    },
+    "center": { "$ref": "#/$defs/direction" },
+    "dimensions": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "allOf": [
+          { "$ref": "#/$defs/direction" },
+          {
+            "type": "object",
+            "required": ["id", "title", "periods"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "title": { "type": "string", "minLength": 1 },
+              "scene_id": {
+                "enum": ["career-route", "creator-gallery", "ai-constellation", "health-vitals", "love-book", "finance-ledger", "life-cabinet", "family-album"]
+              },
+              "support_factors": {
+                "type": "array",
+                "maxItems": 8,
+                "items": { "$ref": "#/$defs/supportDirection" }
+              },
+              "legacy_support_factors": { "type": "array" },
+              "periods": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "todos"],
+                  "properties": {
+                    "id": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$" },
+                    "label": { "type": "string" },
+                    "todos": { "type": "array", "maxItems": 8, "items": { "$ref": "#/$defs/todo" } }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "direction": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "anti_vision": { "type": "string" },
+        "desired_state": { "type": "string" },
+        "summary": { "type": "string" },
+        "source_quote": { "type": "string" },
+        "operating_loop": { "$ref": "#/$defs/operatingLoop" },
+        "status": { "enum": ["raw", "candidate", "confirmed", "retired"] }
+      },
+      "additionalProperties": true
+    },
+    "operatingLoop": {
+      "type": "object",
+      "properties": {
+        "input": { "type": "string" },
+        "practice": { "type": "string" },
+        "output": { "type": "string" },
+        "evidence": { "type": "string" },
+        "review": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "supportDirection": {
+      "allOf": [
+        { "$ref": "#/$defs/direction" },
+        {
+          "type": "object",
+          "required": ["id", "title"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "title": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "todo": {
+      "type": "object",
+      "required": ["id", "title", "status", "records"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "direction_id": { "type": "string", "minLength": 1 },
+        "plan": { "type": "string" },
+        "done_definition": { "type": "string" },
+        "status": { "enum": ["planned", "doing", "done", "paused"] },
+        "provenance": { "enum": ["user", "ai-candidate", "user-confirmed"] },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "date", "text"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "date": { "type": "string" },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
