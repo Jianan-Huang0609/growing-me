@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "我的人生地图",
+    "version": "1.2.0-monthly",
+    "updated_at": "2026-09-18T00:00:00.000Z",
+    "visibility": "private",
+    "active_period": "2026-09",
+    "revision": 0
+  },
+  "center": {
+    "title": "我想要的生活与成长",
+    "anti_vision": "",
+    "desired_state": "",
+    "summary": "",
+    "source_quote": "",
+    "status": "raw"
+  },
+  "dimensions": []
+}

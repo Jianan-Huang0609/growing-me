@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Growing Me 两层人生地图：从长期方向到本月重点与真实证据。">
+  <meta name="theme-color" content="#17231f">
+  <title>Growing Me · 月度人生地图</title>
+  <link rel="stylesheet" href="styles.css?v=1.2.0-20260918d">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" id="brandLink" href="./" aria-label="返回当前 Growing Me 版本首页">
+      <span class="brand-mark" aria-hidden="true">GM</span>
+      <span><strong>Growing Me</strong><small id="brandSubtitle">两层人生地图 · Alpha</small></span>
+    </a>
+    <div class="top-actions">
+      <button class="button button-primary" id="copySkillButton" type="button">复制给 Coding Agent</button>
+      <button class="button" id="importButton" type="button">导入</button>
+      <button class="button" id="exportButton" type="button">导出</button>
+    </div>
+  </header>
+
+  <aside class="demo-banner" id="demoBanner" aria-label="当前版本说明" hidden>
+    <div>
+      <strong id="demoBannerTitle">公开演示模式</strong>
+      <span id="demoBannerText">所有演示内容均为虚构，仅用于查看产品结构。</span>
+    </div>
+  </aside>
+
+  <main>
+    <section class="workspace-head" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow" id="workspaceEyebrow">先对话，后成图</p>
+        <h1 id="pageTitle">我的人生地图</h1>
+        <p id="mapSummary">第一轮只聊一个房间也可以。空白不是欠缺，只是还没走到这里。</p>
+      </div>
+      <div class="view-switch" role="group" aria-label="选择地图视图">
+        <button class="view-button is-active" type="button" data-view="grid" aria-pressed="true">两层九宫格</button>
+        <button class="view-button" type="button" data-view="rooms" aria-pressed="false">房间长卷</button>
+      </div>
+    </section>
+
+    <div class="experience-runtime-meta" hidden>
+      <span id="experienceModeLabel">当前版本</span>
+      <small id="experienceSourceLabel">数据源</small>
+    </div>
+
+    <p class="progressive-flow" id="progressiveFlow"><strong>网站先在这里</strong><span>克隆并运行 ./start</span><b aria-hidden="true">→</b><span>和 AI 逐问确认</span><b aria-hidden="true">→</b><span>本地地图自动长出来</span></p>
+    <p class="local-sync-status" id="localSyncStatus" role="status" aria-live="polite" hidden><span aria-hidden="true"></span><strong>正在连接本地地图</strong><small></small></p>
+
+    <section id="gridView" class="view-panel is-active" aria-label="两层九宫格">
+      <nav id="breadcrumbs" class="breadcrumbs" aria-label="地图层级"></nav>
+      <div class="layer-switch" id="dimensionLayerSwitch" role="group" aria-label="选择长期方向或本月行动" hidden>
+        <button class="layer-button is-active" type="button" data-layer="directions" aria-pressed="true">长期方向</button>
+        <button class="layer-button" type="button" data-layer="monthly" aria-pressed="false">本月行动</button>
+      </div>
+      <div class="month-strip">
+        <div>
+          <span class="month-label" id="contextLabel">当前月份</span>
+          <strong id="activePeriodLabel">2026 年 9 月</strong>
+        </div>
+        <button class="text-button" id="backToRootButton" type="button" hidden>← 返回人生总盘</button>
+      </div>
+      <div id="gridCanvas" class="nine-grid" aria-live="polite"></div>
+      <div id="gridEmptyHint" class="empty-hint" hidden></div>
+    </section>
+
+    <section id="roomsView" class="view-panel corridor-experience" aria-label="房间长卷" hidden>
+      <div id="corridorTrack" class="corridor-track">
+        <div id="corridorStage" class="corridor-stage" tabindex="0" aria-describedby="corridorInstruction">
+          <div class="corridor-world" aria-hidden="true">
+            <div class="corridor-ceiling"></div>
+            <div class="corridor-wall corridor-wall-left"></div>
+            <div class="corridor-wall corridor-wall-right"></div>
+            <div class="corridor-floor"></div>
+            <div class="corridor-end"></div>
+            <div class="corridor-ink corridor-ink-one"></div>
+            <div class="corridor-ink corridor-ink-two"></div>
+          </div>
+          <div id="corridorDoors" class="corridor-doors" aria-label="长廊中的八个房间"></div>
+
+          <div id="corridorEntry" class="corridor-entry">
+            <div class="entrance-door" aria-hidden="true">
+              <span class="entrance-leaf entrance-leaf-left"></span>
+              <span class="entrance-leaf entrance-leaf-right"></span>
+              <span class="entrance-seal">GM</span>
+            </div>
+            <div class="entrance-copy">
+              <p class="eyebrow">你的生活，不是一张待填满的表</p>
+              <h2><span>推开门，走进</span><span>你的人生长廊</span></h2>
+              <p>八扇门对应八个长期生活房间。进入后，用滚动靠近它们；门在你面前显色时，才可以推门进去。</p>
+              <button class="button button-primary entrance-button" id="enterCorridorButton" type="button">推开长廊的门 →</button>
+            </div>
+          </div>
+
+          <div class="corridor-hud">
+            <div class="corridor-brand"><span>GROWING ME</span><strong>人生长廊</strong></div>
+            <div class="corridor-hud-actions">
+              <button class="corridor-map-toggle corridor-grid-toggle" id="corridorGridButton" type="button">返回九宫格</button>
+              <button class="corridor-map-toggle" id="corridorMapButton" type="button" aria-expanded="false" aria-controls="corridorMap">查看八个房间</button>
+            </div>
+          </div>
+          <nav id="corridorMap" class="corridor-map" aria-label="快速前往房间" hidden></nav>
+          <div class="corridor-readout" aria-live="polite">
+            <span id="corridorRoomCount">入口 · 00 / 08</span>
+            <strong id="corridorRoomTitle">向前走，第一扇门会出现</strong>
+            <div class="corridor-progress" aria-hidden="true"><span id="corridorProgressBar"></span></div>
+          </div>
+          <p class="corridor-instruction" id="corridorInstruction">滚动或按方向键前行；门显色后，点击推门进入</p>
+        </div>
+      </div>
+      <section id="roomFocus" class="room-focus" aria-label="放大的房间" hidden>
+        <button class="button room-focus-back" id="exitRoomButton" type="button">← 回到这扇门前</button>
+        <div id="roomFocusContent" class="room-focus-content"></div>
+      </section>
+      <button class="room-overview-button" id="roomOverviewButton" type="button" hidden><span>方向总览</span><strong></strong></button>
+    </section>
+  </main>
+
+  <details class="advanced-tools" id="advancedTools">
+    <summary>高级设置</summary>
+    <div>
+      <button type="button" id="compassButton">AI 答卷</button>
+      <button type="button" id="loadDemoButton">打开完整虚构演示</button>
+      <button type="button" id="clearButton">重新开始</button>
+    </div>
+  </details>
+
+  <dialog id="importDialog" class="dialog">
+    <form method="dialog" class="dialog-card" id="importForm">
+      <div class="dialog-head">
+        <div><p class="eyebrow">从外部 AI 带回来</p><h2>导入人生地图</h2></div>
+        <button class="close-button" id="closeImportButton" type="button" aria-label="关闭">×</button>
+      </div>
+      <p>粘贴 AI 输出的完整 JSON，或选择文件。先检查格式与内容数量；你确认后，才会替换当前浏览器中的地图。</p>
+      <label class="file-field">选择 JSON 文件<input id="fileInput" type="file" accept="application/json,.json"></label>
+      <label for="importText">或者粘贴内容</label>
+      <textarea id="importText" rows="12" placeholder="把 AI 输出的完整 JSON 粘贴到这里"></textarea>
+      <div id="importMessage" class="message" hidden></div>
+      <div id="importPreview" class="import-preview" hidden></div>
+      <div class="dialog-actions">
+        <button class="button" id="cancelImportButton" type="button">取消</button>
+        <button class="button" id="previewImportButton" type="button">检查资料</button>
+        <button class="button button-primary" id="confirmImportButton" type="button" hidden>确认导入</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="todoDialog" class="dialog">
+    <form method="dialog" class="dialog-card" id="todoForm">
+      <div class="dialog-head">
+        <div><p class="eyebrow" id="todoContext">本月计划</p><h2 id="todoDialogTitle">添加一件具体的事</h2></div>
+        <button class="close-button" id="closeTodoButton" type="button" aria-label="关闭">×</button>
+      </div>
+      <input type="hidden" id="todoId">
+      <input type="hidden" id="todoDirectionId">
+      <p class="todo-direction-link" id="todoDirectionLink" hidden></p>
+      <label for="todoTitle">准备做什么</label>
+      <input id="todoTitle" required maxlength="80" placeholder="例如：完成一份可展示的案例">
+      <label for="todoPlan">具体计划</label>
+      <textarea id="todoPlan" rows="3" maxlength="500" placeholder="做到哪一步、什么时候推进"></textarea>
+      <label for="todoDone">怎样算完成或得到答案</label>
+      <textarea id="todoDone" rows="2" maxlength="300" placeholder="写一个可观察的完成或验证标准"></textarea>
+      <label for="todoStatus">当前状态</label>
+      <select id="todoStatus">
+        <option value="planned">准备做</option>
+        <option value="doing">进行中</option>
+        <option value="done">已完成</option>
+        <option value="paused">暂时放下</option>
+      </select>
+      <label for="todoRecord">追加一条真实记录</label>
+      <textarea id="todoRecord" rows="3" maxlength="600" placeholder="今天实际发生了什么？留空则不新增记录。"></textarea>
+      <div class="dialog-actions">
+        <button class="button" id="cancelTodoButton" type="button">取消</button>
+        <button class="button button-primary" id="saveTodoButton" type="submit">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="directionWorkbenchDialog" class="dialog direction-workbench-dialog" aria-labelledby="directionWorkbenchTitle">
+    <div class="direction-workbench-card">
+      <header class="direction-workbench-head">
+        <div>
+          <p class="eyebrow" id="directionWorkbenchContext">房间 · 长期方向</p>
+          <h2 id="directionWorkbenchTitle">方向工作台</h2>
+          <span class="direction-workbench-status" id="directionWorkbenchStatus"></span>
+        </div>
+        <button class="close-button" id="closeDirectionWorkbenchButton" type="button" aria-label="关闭方向工作台">×</button>
+      </header>
+      <section class="direction-workbench-intent" aria-labelledby="directionWorkbenchIntentLabel">
+        <span id="directionWorkbenchIntentLabel">我想靠近的状态</span>
+        <p id="directionWorkbenchGoal"></p>
+      </section>
+      <section class="direction-workbench-loop" aria-label="方向的输入输出循环">
+        <div><span>01 · 输入</span><p id="directionWorkbenchInput">把真实经历、观察和新信息带进来</p></div>
+        <b aria-hidden="true">→</b>
+        <div><span>02 · 实践</span><p id="directionWorkbenchPractice">只保留能够稳定重复的实践</p></div>
+        <b aria-hidden="true">→</b>
+        <div><span>03 · 输出</span><p id="directionWorkbenchOutput">形成一个可以被看见或使用的结果</p></div>
+        <b aria-hidden="true">→</b>
+        <div><span>04 · 回看</span><p id="directionWorkbenchReview">确认真实变化，再决定继续或调整</p></div>
+      </section>
+      <details class="direction-workbench-index">
+        <summary>切换这个房间的其他方向</summary>
+        <nav class="direction-workbench-nav" id="directionWorkbenchNav" aria-label="查看这个房间的全部长期方向"></nav>
+      </details>
+      <div class="direction-workbench-grid">
+        <section class="workbench-panel">
+          <span>用反面校准</span>
+          <h3>不想滑向的样子</h3>
+          <p id="directionWorkbenchBaseline"></p>
+        </section>
+        <section class="workbench-panel">
+          <span>怎样持续</span>
+          <h3>稳定行动</h3>
+          <p id="directionWorkbenchCadence"></p>
+        </section>
+        <section class="workbench-panel">
+          <span>本期怎么承接</span>
+          <h3>当前重点与行动</h3>
+          <p id="directionWorkbenchProjects"></p>
+        </section>
+        <section class="workbench-panel">
+          <span>如何知道在前进</span>
+          <h3 id="directionWorkbenchEvidenceHeading">真实证据</h3>
+          <div id="directionWorkbenchEvidence"></div>
+        </section>
+        <section class="workbench-panel workbench-actions-panel">
+          <div class="workbench-actions-head">
+            <div><span>把方向落到当月</span><h3>本月行动</h3></div>
+            <button class="button button-primary" id="addDirectionTodoButton" type="button">+ 绑定一件行动</button>
+          </div>
+          <div id="directionWorkbenchActions"></div>
+        </section>
+      </div>
+      <footer class="direction-workbench-foot">
+        <p id="directionWorkbenchFooterText">这里只收真实发生的内容；未聊清的部分会继续留白。</p>
+        <button class="button" id="closeDirectionWorkbenchFooterButton" type="button">回到这个方向</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog id="compassDialog" class="dialog compass-dialog" aria-labelledby="compassTitle">
+    <div class="compass-card">
+      <header class="compass-head">
+        <div>
+          <p class="eyebrow">64 个方向，由 AI 帮你长期回看</p>
+          <h2 id="compassTitle">人生罗盘 · AI 答卷</h2>
+          <p>项目负责真正做事，领域 AI 负责对照方向、整理证据与指出差距。AI 只能交候选答卷，不能替你改写人生目标。</p>
+        </div>
+        <button class="close-button" id="closeCompassButton" type="button" aria-label="关闭人生罗盘">×</button>
+      </header>
+
+      <section class="compass-status" aria-label="账本连接状态">
+        <div><span>当前账本</span><strong>本设备私有</strong><small>不会自动上传旧资料</small></div>
+        <div><span>连接方式</span><strong>网站工具</strong><small>页面打开时，Codex 可提交候选回执</small></div>
+        <div><span>账本版本</span><strong id="compassRevision">R0</strong><small id="compassPendingCount">没有待确认内容</small></div>
+      </section>
+
+      <section class="compass-section" aria-labelledby="compassBoardsTitle">
+        <div class="compass-section-head">
+          <div><span>八个审查镜头</span><h3 id="compassBoardsTitle">AI 在看哪些方向</h3></div>
+          <p>这里不是 64 项打卡清单。每个板块只显示已形成的方向与近期证据。</p>
+        </div>
+        <div class="compass-board-list" id="compassBoardList"></div>
+      </section>
+
+      <section class="compass-section" aria-labelledby="compassReviewsTitle">
+        <div class="compass-section-head">
+          <div><span>由 AI 生成，由你定稿</span><h3 id="compassReviewsTitle">候选答卷</h3></div>
+        </div>
+        <div class="compass-review-list" id="compassReviewList"></div>
+      </section>
+
+      <section class="compass-section" aria-labelledby="compassReceiptsTitle">
+        <div class="compass-section-head">
+          <div><span>只收真实发生</span><h3 id="compassReceiptsTitle">领域回执</h3></div>
+          <button class="text-button" id="toggleCompassImportButton" type="button" aria-expanded="false" aria-controls="compassImportPanel">手动带回 AI 回执</button>
+        </div>
+        <div class="compass-import" id="compassImportPanel" hidden>
+          <p>自动连接不可用时，可粘贴一份 <code>DOMAIN_RECEIPT_v1</code>。内容只会先进入候选区。</p>
+          <textarea id="compassImportText" rows="8" placeholder="粘贴单条回执、回执数组，或包含 receipts / review 的 JSON"></textarea>
+          <div class="compass-import-actions">
+            <button class="button" id="cancelCompassImportButton" type="button">收起</button>
+            <button class="button button-primary" id="stageCompassImportButton" type="button">暂存为候选</button>
+          </div>
+        </div>
+        <div class="compass-receipt-list" id="compassReceiptList"></div>
+      </section>
+
+      <footer class="compass-foot">
+        <p>敏感回执只保存在本设备，也不会通过站点工具回传正文。医疗报告、财务账号、完整聊天和密钥不应写入这里。</p>
+        <div>
+          <button class="button" id="exportCompassButton" type="button">导出私有账本</button>
+          <button class="button button-primary" id="closeCompassFooterButton" type="button">回到人生地图</button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="model.js?v=1.2.0-20260918b"></script>
+  <script src="ledger.js?v=1.0.0-20260917"></script>
+  <script src="app.js?v=1.2.0-20260918d"></script>
+</body>
+</html>

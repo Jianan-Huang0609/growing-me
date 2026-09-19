@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+LIFE_GRID_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec node "$LIFE_GRID_ROOT/scripts/start-local.mjs" "$@"

@@ -1,0 +1,1249 @@
+{
+  "meta": {
+    "title": "完整生活地图 · 教学案例",
+    "version": "1.2.0-monthly",
+    "revision": 1,
+    "updated_at": "2026-09-18T12:00:00+08:00",
+    "visibility": "demo",
+    "active_period": "2026-09"
+  },
+  "center": {
+    "title": "有根、有余地、持续打开的生活",
+    "anti_vision": "看起来一直稳定、忙碌、正确，却每年都在重复同一种惯性，最终说不清时间去了哪里。",
+    "desired_state": "把时间放在真正重要的人和事上；既能做有贡献的工作，也能照顾身体、关系和日常，并始终保有选择与好奇。",
+    "summary": "展示中心愿景、八个生活房间、64 个长期方向，以及少量当月行动如何形成闭环。",
+    "source_quote": "",
+    "status": "confirmed"
+  },
+  "dimensions": [
+    {
+      "id": "work-contribution",
+      "title": "工作与贡献",
+      "scene_id": "career-route",
+      "anti_vision": "每天忙着响应别人，却没有自己的问题判断、积累和边界。",
+      "desired_state": "做值得投入的事，形成可靠的专业手艺、协作能力和可以带走的选择权。",
+      "summary": "这个房间负责：做值得投入的事，形成可靠的专业手艺、协作能力和可以带走的选择权。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "work-contribution-worthy-problems",
+          "title": "值得解决的问题",
+          "anti_vision": "总是处理声音最大的事。",
+          "desired_state": "能判断什么问题值得长期投入。",
+          "summary": "真实需求与现场观察 → 一页问题选择说明",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "真实需求与现场观察",
+            "practice": "每季度比较一次问题的价值与代价",
+            "output": "一页问题选择说明",
+            "evidence": "用一个真实项目验证取舍",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "work-contribution-craft",
+          "title": "专业手艺",
+          "anti_vision": "什么都会一点，却无法解决难题。",
+          "desired_state": "在一项核心能力上值得信任。",
+          "summary": "经典方法、优秀案例与失败复盘 → 一份完整案例或可复用方法",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "经典方法、优秀案例与失败复盘",
+            "practice": "每周一次刻意练习",
+            "output": "一份完整案例或可复用方法",
+            "evidence": "能独立解决更复杂的问题",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "work-contribution-systems",
+          "title": "系统视角",
+          "anti_vision": "只优化自己眼前的一小段。",
+          "desired_state": "看见问题的上下游和长期影响。",
+          "summary": "流程、角色与历史决策 → 系统图与关键判断",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "流程、角色与历史决策",
+            "practice": "为关键问题画一次系统图",
+            "output": "系统图与关键判断",
+            "evidence": "方案减少局部优化造成的返工",
+            "review": "里程碑后"
+          }
+        },
+        {
+          "id": "work-contribution-delivery",
+          "title": "可靠交付",
+          "anti_vision": "最后时刻总靠救火完成。",
+          "desired_state": "承诺清楚、风险提前暴露、结果能够闭环。",
+          "summary": "目标、约束与风险变化 → 可验收成果与风险记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "目标、约束与风险变化",
+            "practice": "每周核对承诺和阻塞",
+            "output": "可验收成果与风险记录",
+            "evidence": "结果按约完成且没有隐藏风险",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "work-contribution-alignment",
+          "title": "协作共识",
+          "anti_vision": "表面同意，最后反复返工。",
+          "desired_state": "重要参与者理解同一个目标和取舍。",
+          "summary": "不同角色的目标和担忧 → 简短决策记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "不同角色的目标和担忧",
+            "practice": "重要节点复述共识与分歧",
+            "output": "简短决策记录",
+            "evidence": "责任更清楚、返工更少",
+            "review": "项目结束"
+          }
+        },
+        {
+          "id": "work-contribution-enable-others",
+          "title": "成就他人",
+          "anti_vision": "把关键工作全部留在自己手里。",
+          "desired_state": "帮助别人逐渐独立完成重要工作。",
+          "summary": "他人的目标、能力与反馈 → 可复用说明与清楚授权",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "他人的目标、能力与反馈",
+            "practice": "授权、示范和具体反馈",
+            "output": "可复用说明与清楚授权",
+            "evidence": "他人能独立拿到结果",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "work-contribution-boundaries",
+          "title": "可持续边界",
+          "anti_vision": "把持续紧急当成能力证明。",
+          "desired_state": "工作节奏允许长期保持判断力。",
+          "summary": "日历、能量与临时请求 → 一张真实可执行的周计划",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "日历、能量与临时请求",
+            "practice": "每周删减或重排一项低价值承诺",
+            "output": "一张真实可执行的周计划",
+            "evidence": "计划工作多于临时救火",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "work-contribution-choice-assets",
+          "title": "选择资产",
+          "anti_vision": "离开当前头衔就说不清价值。",
+          "desired_state": "能力、作品和关系不依附单一职位。",
+          "summary": "完成的成果与行业变化 → 更新的作品、关系与机会判断",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "完成的成果与行业变化",
+            "practice": "每季度整理一项可带走的积累",
+            "output": "更新的作品、关系与机会判断",
+            "evidence": "能够解释自己的独立价值",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": [
+            {
+              "id": "work-contribution-worthy-problems-action",
+              "title": "写一页“什么工作问题值得我投入”",
+              "direction_id": "work-contribution-worthy-problems",
+              "plan": "比较三个真实问题的长期价值、学习密度和机会成本，只选择一个进入小型验证。",
+              "done_definition": "完成一页取舍说明，并用一个真实工作场景验证。",
+              "status": "doing",
+              "provenance": "user-confirmed",
+              "records": [
+                {
+                  "id": "work-contribution-worthy-problems-record",
+                  "date": "2026-09-18",
+                  "text": "虚构记录：已经排除了一个只是紧急、但并不值得长期投入的问题。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learning-judgment",
+      "title": "学习与判断",
+      "scene_id": "ai-constellation",
+      "anti_vision": "收藏大量信息，却没有形成自己的问题、观点和验证。",
+      "desired_state": "建立能持续更新的认知系统，让学到的东西进入判断和行动。",
+      "summary": "这个房间负责：建立能持续更新的认知系统，让学到的东西进入判断和行动。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "learning-judgment-questions",
+          "title": "关键问题",
+          "anti_vision": "被推荐流和热点牵着走。",
+          "desired_state": "先知道自己正在试图理解什么。",
+          "summary": "真实困惑、失败与反常现象 → 当前最重要的三个问题",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "真实困惑、失败与反常现象",
+            "practice": "每月删改一次问题清单",
+            "output": "当前最重要的三个问题",
+            "evidence": "学习选择开始围绕问题收敛",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "learning-judgment-models",
+          "title": "基础模型",
+          "anti_vision": "只积累零散技巧。",
+          "desired_state": "用少数可靠模型理解反复出现的问题。",
+          "summary": "经典材料与系统课程 → 模型卡与案例解释",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "经典材料与系统课程",
+            "practice": "每次用一个模型解释真实案例",
+            "output": "模型卡与案例解释",
+            "evidence": "能迁移到不同场景",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "learning-judgment-primary-sources",
+          "title": "一手来源",
+          "anti_vision": "只转述二手结论。",
+          "desired_state": "重要判断尽量回到原始信息。",
+          "summary": "原文、数据和当事人经验 → 有出处的判断卡",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "原文、数据和当事人经验",
+            "practice": "为关键结论保留出处",
+            "output": "有出处的判断卡",
+            "evidence": "能区分事实、解释与推测",
+            "review": "重要判断时"
+          }
+        },
+        {
+          "id": "learning-judgment-perspectives",
+          "title": "多元视角",
+          "anti_vision": "只接受让自己舒服的信息。",
+          "desired_state": "主动看见不同立场和反例。",
+          "summary": "不同学科、反方材料和边界案例 → 一次观点修订",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "不同学科、反方材料和边界案例",
+            "practice": "每月主动找一个强反例",
+            "output": "一次观点修订",
+            "evidence": "观点能说明适用边界",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "learning-judgment-knowledge-system",
+          "title": "知识整理",
+          "anti_vision": "笔记越积越多却从不回看。",
+          "desired_state": "信息可以被重新找到和使用。",
+          "summary": "阅读标记、问题与实践记录 → 可检索的问题地图",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "阅读标记、问题与实践记录",
+            "practice": "只整理会再次使用的内容",
+            "output": "可检索的问题地图",
+            "evidence": "旧知识能支持新任务",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "learning-judgment-experiments",
+          "title": "小型验证",
+          "anti_vision": "一直学习却不接触现实。",
+          "desired_state": "用低成本行动检验理解。",
+          "summary": "一个清楚假设 → 结果、意外和新问题",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "一个清楚假设",
+            "practice": "设计一周内能结束的小实验",
+            "output": "结果、意外和新问题",
+            "evidence": "至少一个判断被证实或修正",
+            "review": "每次实验后"
+          }
+        },
+        {
+          "id": "learning-judgment-dialogue",
+          "title": "对话校准",
+          "anti_vision": "只在自己的脑内闭环。",
+          "desired_state": "让观点经得起别人追问。",
+          "summary": "同行反馈与真实异议 → 被修正的判断",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "同行反馈与真实异议",
+            "practice": "每月做一次深度讨论",
+            "output": "被修正的判断",
+            "evidence": "能复述对方最强观点",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "learning-judgment-synthesis",
+          "title": "阶段综合",
+          "anti_vision": "新知识加入，旧观点从不更新。",
+          "desired_state": "定期形成“目前我怎么看”。",
+          "summary": "本期问题、证据和实验 → 一份阶段判断",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "本期问题、证据和实验",
+            "practice": "每季度做一次综合",
+            "output": "一份阶段判断",
+            "evidence": "能说清什么变了、为什么",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": []
+        }
+      ]
+    },
+    {
+      "id": "creation-expression",
+      "title": "创造与表达",
+      "scene_id": "creator-gallery",
+      "anti_vision": "一直等待灵感，或只模仿流行表达而没有自己的作品脉络。",
+      "desired_state": "稳定把观察转化成作品，逐渐形成自己的主题、手艺和声音。",
+      "summary": "这个房间负责：稳定把观察转化成作品，逐渐形成自己的主题、手艺和声音。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "creation-expression-observation",
+          "title": "生活观察",
+          "anti_vision": "只有消费，没有看见。",
+          "desired_state": "对日常保持感受力。",
+          "summary": "片段、疑问与细小变化 → 可继续发展的素材",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "片段、疑问与细小变化",
+            "practice": "每周整理三条观察",
+            "output": "可继续发展的素材",
+            "evidence": "素材能长成一个问题或作品",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "creation-expression-themes",
+          "title": "个人命题",
+          "anti_vision": "追逐每一个热点。",
+          "desired_state": "知道哪些问题值得自己反复表达。",
+          "summary": "反复出现的困惑和兴趣 → 一张主题地图",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "反复出现的困惑和兴趣",
+            "practice": "每季度合并或放下主题",
+            "output": "一张主题地图",
+            "evidence": "新作品能落到稳定主线",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "creation-expression-materials",
+          "title": "素材收藏",
+          "anti_vision": "好想法出现后立刻消失。",
+          "desired_state": "灵感有地方停留和生长。",
+          "summary": "片段、图片、声音和对话 → 可检索素材库",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "片段、图片、声音和对话",
+            "practice": "随手收集、每周一次归位",
+            "output": "可检索素材库",
+            "evidence": "需要创作时能找到材料",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "creation-expression-craft-practice",
+          "title": "手艺练习",
+          "anti_vision": "只等完整大作品。",
+          "desired_state": "表达能力通过持续练习变细腻。",
+          "summary": "优秀作品与自己的旧作 → 一组可比较练习",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "优秀作品与自己的旧作",
+            "practice": "做小稿、临摹和单项练习",
+            "output": "一组可比较练习",
+            "evidence": "同一能力能看见改进",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "creation-expression-finish",
+          "title": "完成作品",
+          "anti_vision": "完美主义让所有东西停在草稿。",
+          "desired_state": "作品能够真正结束。",
+          "summary": "清楚范围与截止点 → 一个完整成品",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "清楚范围与截止点",
+            "practice": "先完成最小完整版本",
+            "output": "一个完整成品",
+            "evidence": "作品被交付而非永久打磨",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "creation-expression-publish",
+          "title": "适度公开",
+          "anti_vision": "要么全部藏起，要么过度暴露。",
+          "desired_state": "为合适的作品找到合适的读者。",
+          "summary": "分享目的与隐私边界 → 一次边界清楚的发布",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "分享目的与隐私边界",
+            "practice": "为每件作品选择公开程度",
+            "output": "一次边界清楚的发布",
+            "evidence": "公开后仍感到安全和完整",
+            "review": "每次发布后"
+          }
+        },
+        {
+          "id": "creation-expression-response",
+          "title": "真实回应",
+          "anti_vision": "只追逐掌声或完全拒绝反馈。",
+          "desired_state": "从反馈理解作品实际抵达了什么。",
+          "summary": "具体读者反应 → 一张反馈判断卡",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "具体读者反应",
+            "practice": "每月提炼一项保留和一项调整",
+            "output": "一张反馈判断卡",
+            "evidence": "下一件作品使用了真实反馈",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "creation-expression-body-of-work",
+          "title": "作品脉络",
+          "anti_vision": "每次都从零开始。",
+          "desired_state": "单个作品逐渐连成长期主题。",
+          "summary": "已完成作品与创作注记 → 可以浏览的作品路径",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "已完成作品与创作注记",
+            "practice": "定期归档、串联和命名",
+            "output": "可以浏览的作品路径",
+            "evidence": "能讲清自己的创作变化",
+            "review": "每半年"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": []
+        }
+      ]
+    },
+    {
+      "id": "body-recovery",
+      "title": "身体与恢复",
+      "scene_id": "health-vitals",
+      "anti_vision": "只在崩溃或不舒服时才关注身体，把运动和饮食当成惩罚。",
+      "desired_state": "身体有稳定节律，能够支持工作、关系和探索，也愿意再次活动。",
+      "summary": "这个房间负责：身体有稳定节律，能够支持工作、关系和探索，也愿意再次活动。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "body-recovery-sleep",
+          "title": "睡眠锚点",
+          "anti_vision": "长期用熬夜透支第二天。",
+          "desired_state": "大多数早晨醒来有恢复感。",
+          "summary": "光照、起床时间与睡前状态 → 两周睡眠观察",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "光照、起床时间与睡前状态",
+            "practice": "固定一个可守住的起床锚点",
+            "output": "两周睡眠观察",
+            "evidence": "白天清醒程度与节律更稳定",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "body-recovery-movement",
+          "title": "日常活动",
+          "anti_vision": "只有正式运动才算活动。",
+          "desired_state": "久坐能被自然打断。",
+          "summary": "步行机会与久坐时段 → 一周活动轨迹",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "步行机会与久坐时段",
+            "practice": "把短步行和伸展放进日程转换",
+            "output": "一周活动轨迹",
+            "evidence": "活动自然进入大多数日子",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "body-recovery-strength",
+          "title": "力量稳定",
+          "anti_vision": "只追求外观或短期强度。",
+          "desired_state": "身体能承担日常负荷。",
+          "summary": "动作质量与恢复反馈 → 训练记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "动作质量与恢复反馈",
+            "practice": "循序增加负荷",
+            "output": "训练记录",
+            "evidence": "动作更稳、负荷逐渐提高",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "body-recovery-cardio",
+          "title": "心肺耐力",
+          "anti_vision": "日常活动很快耗尽。",
+          "desired_state": "走远、爬坡和旅行不再成为负担。",
+          "summary": "体感强度与恢复速度 → 耐力体验记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "体感强度与恢复速度",
+            "practice": "规律进行适度有氧或户外活动",
+            "output": "耐力体验记录",
+            "evidence": "同等活动更轻松、恢复更快",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "body-recovery-food",
+          "title": "饮食节律",
+          "anti_vision": "忙时不吃，之后补偿。",
+          "desired_state": "吃饭稳定、满足且不过度控制。",
+          "summary": "饥饿、能量与常用食材 → 一周饮食节律",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "饥饿、能量与常用食材",
+            "practice": "准备几种简单可重复的餐食",
+            "output": "一周饮食节律",
+            "evidence": "能量更平稳、临时应付更少",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "body-recovery-stress",
+          "title": "压力释放",
+          "anti_vision": "把所有空隙继续塞满。",
+          "desired_state": "压力有正常出口。",
+          "summary": "身体紧绷和情绪信号 → 一次有效恢复记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "身体紧绷和情绪信号",
+            "practice": "使用散步、呼吸、自然或无屏时间",
+            "output": "一次有效恢复记录",
+            "evidence": "能更早察觉并降低紧绷",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "body-recovery-preventive-care",
+          "title": "预防照护",
+          "anti_vision": "完全忽略或反复焦虑。",
+          "desired_state": "必要检查和专业建议得到跟进。",
+          "summary": "常规检查与可靠专业建议 → 清楚的跟进记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "常规检查与可靠专业建议",
+            "practice": "只保留必要的照护清单",
+            "output": "清楚的跟进记录",
+            "evidence": "按建议完成而不过度记录",
+            "review": "每年或按建议"
+          }
+        },
+        {
+          "id": "body-recovery-joyful-motion",
+          "title": "身体乐趣",
+          "anti_vision": "把运动当成必须完成的惩罚。",
+          "desired_state": "活动也可以因为好玩。",
+          "summary": "好奇的活动和身体偏好 → 一次快乐活动记忆",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "好奇的活动和身体偏好",
+            "practice": "每月尝试或重复一种喜欢的活动",
+            "output": "一次快乐活动记忆",
+            "evidence": "会主动想再次参加",
+            "review": "每月"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": [
+            {
+              "id": "body-recovery-sleep-action",
+              "title": "测试一个可持续的睡眠锚点",
+              "direction_id": "body-recovery-sleep",
+              "plan": "连续两周只固定起床时间，记录白天清醒程度，不同时叠加其他改变。",
+              "done_definition": "两周后选择一个能长期执行的调整。",
+              "status": "doing",
+              "provenance": "user-confirmed",
+              "records": [
+                {
+                  "id": "body-recovery-sleep-record",
+                  "date": "2026-09-18",
+                  "text": "示例记录：第一周发现周末大幅补觉比晚睡本身更容易打乱节律。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intimacy-companionship",
+      "title": "亲密与陪伴",
+      "scene_id": "love-book",
+      "anti_vision": "关系只剩安排、猜测和防御，困难话题长期无人触碰。",
+      "desired_state": "重要关系中既能靠近，也能坦诚、有边界地共同生活。",
+      "summary": "这个房间负责：重要关系中既能靠近，也能坦诚、有边界地共同生活。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "intimacy-companionship-safe-talk",
+          "title": "安心沟通",
+          "anti_vision": "靠沉默和猜测维持表面和平。",
+          "desired_state": "难受、期待和不确定可以被说出。",
+          "summary": "当下感受与具体事实 → 一次完整对话",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "当下感受与具体事实",
+            "practice": "无打断地听完并复述理解",
+            "output": "一次完整对话",
+            "evidence": "困难话题能够被说完",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "intimacy-companionship-curiosity",
+          "title": "持续好奇",
+          "anti_vision": "觉得自己早已完全了解对方。",
+          "desired_state": "不把对方困在旧标签里。",
+          "summary": "新问题和生活变化 → 一个新发现",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "新问题和生活变化",
+            "practice": "定期问一个真正不知道答案的问题",
+            "output": "一个新发现",
+            "evidence": "对彼此仍有新鲜理解",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "intimacy-companionship-requests",
+          "title": "清楚请求",
+          "anti_vision": "用指责或测试代替请求。",
+          "desired_state": "需要可以被具体表达。",
+          "summary": "感受、需要与现实限制 → 一个双方听懂的请求",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "感受、需要与现实限制",
+            "practice": "把抱怨改写成可行动请求",
+            "output": "一个双方听懂的请求",
+            "evidence": "误解减少、回应更具体",
+            "review": "需要出现时"
+          }
+        },
+        {
+          "id": "intimacy-companionship-repair",
+          "title": "冲突修复",
+          "anti_vision": "把输赢当成关系目标。",
+          "desired_state": "冲突后能够重新建立连接。",
+          "summary": "冲突事实与自己的责任 → 一份新的共同理解",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "冲突事实与自己的责任",
+            "practice": "暂停、承担并完成修复对话",
+            "output": "一份新的共同理解",
+            "evidence": "问题被处理而不是掩盖",
+            "review": "冲突后"
+          }
+        },
+        {
+          "id": "intimacy-companionship-time",
+          "title": "共同时间",
+          "anti_vision": "同处一室却各自缺席。",
+          "desired_state": "相处不只剩事务安排。",
+          "summary": "双方当下的兴趣和精力 → 一段双方都记得的时间",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "双方当下的兴趣和精力",
+            "practice": "安排一段有注意力的共处",
+            "output": "一段双方都记得的时间",
+            "evidence": "相处后感到更连接",
+            "review": "每周或每月"
+          }
+        },
+        {
+          "id": "intimacy-companionship-space",
+          "title": "独立空间",
+          "anti_vision": "把距离等同于不爱。",
+          "desired_state": "亲近不以控制和自我消失为代价。",
+          "summary": "各自兴趣与独处需要 → 一段被保护的独处",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "各自兴趣与独处需要",
+            "practice": "尊重彼此的个人时间",
+            "output": "一段被保护的独处",
+            "evidence": "靠近时更有内容和意愿",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "intimacy-companionship-decisions",
+          "title": "共同决策",
+          "anti_vision": "回避大话题直到不得不决定。",
+          "desired_state": "重要选择有充分讨论和真实同意。",
+          "summary": "信息、担忧与优先级 → 可复述的共同决定",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "信息、担忧与优先级",
+            "practice": "把选项和取舍说清楚",
+            "output": "可复述的共同决定",
+            "evidence": "双方都理解决定原因",
+            "review": "重大选择时"
+          }
+        },
+        {
+          "id": "intimacy-companionship-rituals",
+          "title": "关系仪式",
+          "anti_vision": "只有出问题时才谈关系。",
+          "desired_state": "好的部分也被看见和庆祝。",
+          "summary": "值得感谢和纪念的片段 → 一段共同记忆",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "值得感谢和纪念的片段",
+            "practice": "保留小型感谢或庆祝仪式",
+            "output": "一段共同记忆",
+            "evidence": "关系不只围绕问题运转",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": []
+        }
+      ]
+    },
+    {
+      "id": "money-freedom",
+      "title": "金钱与自由",
+      "scene_id": "finance-ledger",
+      "anti_vision": "金钱长期模糊，被比较、恐惧和冲动驱动。",
+      "desired_state": "看得清钱，也能让钱服务于安全、选择和真正重视的生活。",
+      "summary": "这个房间负责：看得清钱，也能让钱服务于安全、选择和真正重视的生活。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "money-freedom-cashflow",
+          "title": "流向清晰",
+          "anti_vision": "月末只剩模糊感觉。",
+          "desired_state": "知道钱从哪里来、去向哪里。",
+          "summary": "账户与真实收支 → 可解释的现金流",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "账户与真实收支",
+            "practice": "每月做一次简洁归类",
+            "output": "可解释的现金流",
+            "evidence": "大部分支出能说清用途",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "money-freedom-baseline",
+          "title": "基本盘稳定",
+          "anti_vision": "生活成本随收入无意识膨胀。",
+          "desired_state": "固定成本与能力相匹配。",
+          "summary": "固定支出与必要生活成本 → 最低生活成本清单",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "固定支出与必要生活成本",
+            "practice": "每季度审视一项长期支出",
+            "output": "最低生活成本清单",
+            "evidence": "转换期需要的底线更清楚",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "money-freedom-buffer",
+          "title": "缓冲空间",
+          "anti_vision": "所有决定都受短期现金压力控制。",
+          "desired_state": "意外和转换期不必立刻恐慌。",
+          "summary": "收入波动与可能风险 → 缓冲金进度",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "收入波动与可能风险",
+            "practice": "自动积累安全垫",
+            "output": "缓冲金进度",
+            "evidence": "可覆盖一段现实生活",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "money-freedom-protection",
+          "title": "风险保障",
+          "anti_vision": "完全忽略或被焦虑推销。",
+          "desired_state": "用理解而非恐惧处理重大风险。",
+          "summary": "风险清单与可靠咨询 → 一份保障判断",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "风险清单与可靠咨询",
+            "practice": "按生活阶段检查必要保障",
+            "output": "一份保障判断",
+            "evidence": "重要风险有合适方案",
+            "review": "每年"
+          }
+        },
+        {
+          "id": "money-freedom-spending",
+          "title": "价值消费",
+          "anti_vision": "冲动消费后长期内疚。",
+          "desired_state": "支出反映真正重视什么。",
+          "summary": "购买动机与使用反馈 → 满意与后悔支出记录",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "购买动机与使用反馈",
+            "practice": "重要购买前停顿并回看",
+            "output": "满意与后悔支出记录",
+            "evidence": "满意支出明显更多",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "money-freedom-compounding",
+          "title": "长期复利",
+          "anti_vision": "追逐短期热点和他人收益。",
+          "desired_state": "采用自己理解且能坚持的原则。",
+          "summary": "基础知识、目标与风险容量 → 可解释的长期组合",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "基础知识、目标与风险容量",
+            "practice": "按既定原则自动执行",
+            "output": "可解释的长期组合",
+            "evidence": "波动时仍知道为什么持有",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "money-freedom-big-choices",
+          "title": "大额选择",
+          "anti_vision": "目标一直停留在愿望。",
+          "desired_state": "重要目标提前看见资源和取舍。",
+          "summary": "目标、时间与情景估算 → 清楚的选择方案",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "目标、时间与情景估算",
+            "practice": "为一个重要目标做情景比较",
+            "output": "清楚的选择方案",
+            "evidence": "能看到代价和备选路径",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "money-freedom-agreements",
+          "title": "金钱共识",
+          "anti_vision": "钱逐渐变成隐性怨气。",
+          "desired_state": "重要关系中责任和边界透明。",
+          "summary": "共同目标、责任与担忧 → 双方理解一致的约定",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "共同目标、责任与担忧",
+            "practice": "定期讨论并留下简短约定",
+            "output": "双方理解一致的约定",
+            "evidence": "遇到支出选择时减少猜测",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": []
+        }
+      ]
+    },
+    {
+      "id": "home-daily-life",
+      "title": "栖居与日常",
+      "scene_id": "life-cabinet",
+      "anti_vision": "日常被杂乱、维修、屏幕和临时决定持续消耗。",
+      "desired_state": "住所与节奏能够支持休息、照顾和相聚，而不只是睡觉的地方。",
+      "summary": "这个房间负责：住所与节奏能够支持休息、照顾和相聚，而不只是睡觉的地方。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "home-daily-life-space",
+          "title": "空间秩序",
+          "anti_vision": "杂物持续占用注意力。",
+          "desired_state": "常用物品有清楚位置。",
+          "summary": "高频取用与反复杂乱的位置 → 更清楚的归位方式",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "高频取用与反复杂乱的位置",
+            "practice": "每次只整理一个小区域",
+            "output": "更清楚的归位方式",
+            "evidence": "取用和归位更轻松",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "home-daily-life-maintenance",
+          "title": "家务系统",
+          "anti_vision": "总到失控时才大扫除。",
+          "desired_state": "基础维护不依靠临时爆发。",
+          "summary": "重复家务与维修提醒 → 一份可执行维护表",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "重复家务与维修提醒",
+            "practice": "设置简单轮替和最低维护线",
+            "output": "一份可执行维护表",
+            "evidence": "突发处理变少",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "home-daily-life-meals",
+          "title": "饮食照顾",
+          "anti_vision": "疲惫时只剩随机应付。",
+          "desired_state": "日常能有简单、舒服的饭。",
+          "summary": "常备食材与喜欢的基础菜单 → 几顿满意的饭",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "常备食材与喜欢的基础菜单",
+            "practice": "每周准备两种低摩擦餐食",
+            "output": "几顿满意的饭",
+            "evidence": "忙碌时仍能正常吃饭",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "home-daily-life-rhythm",
+          "title": "时间节律",
+          "anti_vision": "工作无限延伸到所有时间。",
+          "desired_state": "一天有开始、转换和结束。",
+          "summary": "日历与状态转换 → 一套日常收尾动作",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "日历与状态转换",
+            "practice": "建立早晚和下班后的锚点",
+            "output": "一套日常收尾动作",
+            "evidence": "更容易进入和离开状态",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "home-daily-life-digital",
+          "title": "数字边界",
+          "anti_vision": "一有空隙就自动刷屏。",
+          "desired_state": "注意力不被通知随时征用。",
+          "summary": "屏幕时间与通知来源 → 一段自主使用的安静时间",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "屏幕时间与通知来源",
+            "practice": "设置无通知时段和无屏区域",
+            "output": "一段自主使用的安静时间",
+            "evidence": "空隙不再自动被占满",
+            "review": "每周"
+          }
+        },
+        {
+          "id": "home-daily-life-rest",
+          "title": "无目的休息",
+          "anti_vision": "只有筋疲力尽才允许停下。",
+          "desired_state": "休息不需要先证明自己值得。",
+          "summary": "疲惫信号与恢复偏好 → 一次真正恢复的休息",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "疲惫信号与恢复偏好",
+            "practice": "预留不追求产出的时间",
+            "output": "一次真正恢复的休息",
+            "evidence": "休息后而非休息中更焦虑",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "home-daily-life-seasons",
+          "title": "季节与自然",
+          "anti_vision": "每个月在室内看起来都一样。",
+          "desired_state": "能感觉到天气、光线和季节变化。",
+          "summary": "天气、植物和附近路线 → 一段具体季节记忆",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "天气、植物和附近路线",
+            "practice": "每月安排一次季节活动",
+            "output": "一段具体季节记忆",
+            "evidence": "能说出这个月自然的变化",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "home-daily-life-hospitality",
+          "title": "欢迎与仪式",
+          "anti_vision": "住所只有功能，没有故事。",
+          "desired_state": "家能承载庆祝、陪伴和款待。",
+          "summary": "值得庆祝和一起度过的时刻 → 一次温暖共同经历",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "值得庆祝和一起度过的时刻",
+            "practice": "举行小型共餐或家庭仪式",
+            "output": "一次温暖共同经历",
+            "evidence": "空间产生了新的共同记忆",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": []
+        }
+      ]
+    },
+    {
+      "id": "friends-belonging",
+      "title": "朋友与归属",
+      "scene_id": "family-album",
+      "anti_vision": "社交只剩点赞、事务与偶然碰面，需要帮助时却找不到真实连接。",
+      "desired_state": "有几段深关系，也与新的群体、地方和不同人生保持连接。",
+      "summary": "这个房间负责：有几段深关系，也与新的群体、地方和不同人生保持连接。",
+      "source_quote": "",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "friends-belonging-deep-friendship",
+          "title": "深度友谊",
+          "anti_vision": "只交换近况，不再交换内心。",
+          "desired_state": "重要朋友知道彼此真正经历什么。",
+          "summary": "朋友近期的真实生活与自己的感受 → 一段专注而具体的谈话",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "朋友近期的真实生活与自己的感受",
+            "practice": "主动发起一次不以办事为目的的共餐",
+            "output": "一段专注而具体的谈话",
+            "evidence": "双方都愿意继续分享真实变化",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "friends-belonging-new-connections",
+          "title": "新的连接",
+          "anti_vision": "社交圈多年不再更新。",
+          "desired_state": "生活持续接触不同经验的人。",
+          "summary": "活动、介绍和共同兴趣 → 一次后续联系",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "活动、介绍和共同兴趣",
+            "practice": "每季度认识一位愿意继续了解的人",
+            "output": "一次后续联系",
+            "evidence": "新关系自然发生第二次互动",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "friends-belonging-mutual-support",
+          "title": "彼此支持",
+          "anti_vision": "只在出事时联系或独自硬撑。",
+          "desired_state": "能够求助，也能在能力内回应。",
+          "summary": "具体需要与彼此容量 → 一次完成的互助",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "具体需要与彼此容量",
+            "practice": "练习提出或回应一个具体请求",
+            "output": "一次完成的互助",
+            "evidence": "帮助没有变成含糊亏欠",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "friends-belonging-participation",
+          "title": "共同参与",
+          "anti_vision": "永远只是旁观者。",
+          "desired_state": "不只消费活动，也参与建设。",
+          "summary": "社群需要与自己的可用能力 → 一份可见贡献",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "社群需要与自己的可用能力",
+            "practice": "承担一个边界清楚的小贡献",
+            "output": "一份可见贡献",
+            "evidence": "共同体因参与产生真实变化",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "friends-belonging-local-belonging",
+          "title": "地方归属",
+          "anti_vision": "住了多年仍像临时路过。",
+          "desired_state": "对居住的地方有真实连接。",
+          "summary": "街区、店铺、公共空间和邻里 → 熟悉的人与路线",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "街区、店铺、公共空间和邻里",
+            "practice": "固定走一条路线并认识一个地方",
+            "output": "熟悉的人与路线",
+            "evidence": "能感到自己不是纯粹过客",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "friends-belonging-different-lives",
+          "title": "不同人生",
+          "anti_vision": "所有朋友都活在同一种经验里。",
+          "desired_state": "与不同年龄和背景保持交流。",
+          "summary": "跨代、跨领域或不同生活方式 → 一次视角变化",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "跨代、跨领域或不同生活方式",
+            "practice": "每季度完成一次深度对话",
+            "output": "一次视角变化",
+            "evidence": "原有判断出现新的边界",
+            "review": "每季度"
+          }
+        },
+        {
+          "id": "friends-belonging-relationship-boundaries",
+          "title": "关系边界",
+          "anti_vision": "过度答应后又突然消失。",
+          "desired_state": "不用讨好维持所有连接。",
+          "summary": "自己的容量与真实意愿 → 一次边界清楚的回应",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "自己的容量与真实意愿",
+            "practice": "及时、诚实地接受或拒绝",
+            "output": "一次边界清楚的回应",
+            "evidence": "关系因此更轻松清楚",
+            "review": "每月"
+          }
+        },
+        {
+          "id": "friends-belonging-shared-memories",
+          "title": "共同记忆",
+          "anti_vision": "总说以后再约。",
+          "desired_state": "友谊有持续发生的故事。",
+          "summary": "共同兴趣和可行时间 → 一段被共同记得的经历",
+          "source_quote": "",
+          "status": "confirmed",
+          "operating_loop": {
+            "input": "共同兴趣和可行时间",
+            "practice": "保留一个简单可重复的传统",
+            "output": "一段被共同记得的经历",
+            "evidence": "下一次相聚不再完全靠偶然",
+            "review": "每季度"
+          }
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": [
+            {
+              "id": "friends-belonging-deep-friendship-action",
+              "title": "发起一次不以办事为目的的共餐",
+              "direction_id": "friends-belonging-deep-friendship",
+              "plan": "邀请两位很久没有深入聊天的朋友，留出一个不赶时间的晚上。",
+              "done_definition": "完成一次真实交流，并决定是否保留为季度传统。",
+              "status": "planned",
+              "provenance": "user-confirmed",
+              "records": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

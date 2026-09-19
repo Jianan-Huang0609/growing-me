@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-19",
+  "product": "Growing Me",
+  "product_type": "AI-assisted personal life-map visualization",
+  "target_urls": [
+    "/monthly/?mode=example&view=grid",
+    "/monthly/?mode=blank&view=grid"
+  ],
+  "review_basis": "Source and existing QA records; full current browser walkthrough not rerun",
+  "source_checks": {
+    "example_model_validation": "PASS",
+    "rooms": 8,
+    "directions": 64,
+    "monthly_actions": 3,
+    "center_room_direction_source_quotes_empty": true,
+    "limitation": "Structural checks do not prove content provenance, privacy completeness, or browser usability"
+  },
+  "flow_reviewed": [
+    "entry",
+    "view_selection",
+    "enter_room",
+    "open_direction",
+    "exit_and_restore",
+    "return_visit"
+  ],
+  "headline_scores": {
+    "example": null,
+    "blank": null,
+    "reason": "Scores withheld until current browser flow is observed end to end"
+  },
+  "category_grades": {
+    "flow_continuity": "REVIEW",
+    "orientation_and_wayfinding": "REVIEW",
+    "active_task_support": "REVIEW",
+    "cognitive_load": "REVIEW",
+    "visual_hierarchy": "REVIEW",
+    "typography_and_readability": "REVIEW",
+    "interaction_states": "REVIEW",
+    "error_and_recovery": "REVIEW",
+    "result_quality": "REVIEW",
+    "trust_and_boundary_framing": "REVIEW",
+    "product_growth_potential": "NOT_RUN",
+    "accessibility_and_touch": "NOT_RUN",
+    "performance_feel": "NOT_RUN"
+  },
+  "findings": [
+    {
+      "id": "REC-01",
+      "title": "Example copy must consistently identify fictional evidence",
+      "severity": "high",
+      "category": "trust_and_boundary_framing",
+      "status": "SOURCE_FIXED_BROWSER_REVIEW"
+    },
+    {
+      "id": "REC-02",
+      "title": "Import copy must match format and count preview, not promise a diff",
+      "severity": "high",
+      "category": "result_quality",
+      "status": "SOURCE_FIXED_BROWSER_REVIEW"
+    },
+    {
+      "id": "REC-03",
+      "title": "Blank is initially empty but imported content persists only in current browser",
+      "severity": "high",
+      "category": "trust_and_boundary_framing",
+      "status": "SOURCE_FIXED_BROWSER_REVIEW"
+    },
+    {
+      "id": "REC-04",
+      "title": "Room and workbench return continuity needs current browser verification",
+      "severity": "medium",
+      "category": "error_and_recovery",
+      "status": "REVIEW"
+    },
+    {
+      "id": "REC-05",
+      "title": "No-script landing redirect, script, and link must resolve to the same Example URL",
+      "severity": "polish",
+      "category": "orientation_and_wayfinding",
+      "status": "SOURCE_FIXED_BROWSER_REVIEW"
+    },
+    {
+      "id": "REC-06",
+      "title": "Blank copy handoff must distinguish Personal local sync from manual JSON import",
+      "severity": "medium",
+      "category": "flow_continuity",
+      "status": "SOURCE_FIXED_BROWSER_REVIEW"
+    }
+  ]
+}

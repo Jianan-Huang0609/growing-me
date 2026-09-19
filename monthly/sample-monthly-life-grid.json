@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "title": "虚构示例 · 一个月的人生地图",
+    "version": "1.2.0-monthly",
+    "updated_at": "2026-09-15T09:00:00+08:00",
+    "visibility": "demo",
+    "active_period": "2026-09"
+  },
+  "center": {
+    "title": "我想要的生活与成长",
+    "anti_vision": "",
+    "desired_state": "有选择权、持续成长，同时不过度透支自己的生活。",
+    "summary": "",
+    "source_quote": "虚构示例，不是你的个人结论。",
+    "status": "confirmed"
+  },
+  "dimensions": [
+    {
+      "id": "career",
+      "title": "事业与选择权",
+      "anti_vision": "一直靠救火证明价值，做完很多事却没有能够带走的积累。",
+      "desired_state": "积累可迁移的能力、可信作品和选择工作的主动权。",
+      "summary": "",
+      "source_quote": "虚构示例：我不想每天只是在救火。",
+      "status": "confirmed",
+      "support_factors": [
+        {
+          "id": "career-direction",
+          "title": "方向判断",
+          "desired_state": "逐步判断更适合自己的角色和行业方向。",
+          "status": "confirmed"
+        },
+        {
+          "id": "career-capability",
+          "title": "核心能力",
+          "desired_state": "形成能够跨团队复用的问题解决能力。",
+          "status": "confirmed"
+        },
+        {
+          "id": "career-evidence",
+          "title": "可信成果",
+          "desired_state": "留下能够说明价值的案例与结果。",
+          "status": "candidate"
+        }
+      ],
+      "legacy_support_factors": [],
+      "periods": [
+        {
+          "id": "2026-09",
+          "label": "2026 年 9 月",
+          "todos": [
+            {
+              "id": "case-study",
+              "title": "完成一份可展示案例",
+              "direction_id": "career-evidence",
+              "plan": "整理一个真实项目，写清问题、判断、行动和结果。",
+              "done_definition": "形成可给别人阅读的版本，并获得一次真实反馈。",
+              "status": "doing",
+              "provenance": "user-confirmed",
+              "records": [
+                {
+                  "id": "r1",
+                  "date": "2026-09-18",
+                  "text": "完成提纲，但发现结果证据不足，决定补充前后对比。"
+                }
+              ]
+            },
+            {
+              "id": "three-talks",
+              "title": "和 3 位目标同行交流",
+              "plan": "保存对方提出的真实问题，而不只记录“聊过”。",
+              "done_definition": "完成三次交流并整理共同问题。",
+              "status": "planned",
+              "provenance": "user-confirmed",
+              "records": []
+            },
+            {
+              "id": "boundaries",
+              "title": "保留每周两个晚上",
+              "plan": "实验一种不过度透支的工作边界。",
+              "done_definition": "记录四周实际做到的次数及对重要产出的影响。",
+              "status": "planned",
+              "provenance": "ai-candidate",
+              "records": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

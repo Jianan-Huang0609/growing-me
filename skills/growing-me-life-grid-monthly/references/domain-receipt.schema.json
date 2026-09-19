@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://growing-me.local/schemas/domain-receipt-v1.json",
+  "title": "Growing Me domain receipt package",
+  "type": "object",
+  "required": ["protocol", "receipts"],
+  "additionalProperties": false,
+  "properties": {
+    "protocol": { "const": "DOMAIN_RECEIPT_v1" },
+    "receipts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/receipt" }
+    },
+    "review": { "$ref": "#/$defs/review" }
+  },
+  "$defs": {
+    "receipt": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "occurred_at",
+        "domain_id",
+        "kind",
+        "summary",
+        "source_ref",
+        "evidence_status",
+        "impact"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "receipt_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "occurred_at": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "domain_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "direction_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "kind": { "enum": ["fact", "metric", "feedback", "output", "decision", "plan"] },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "source_ref": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "project_refs": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 300 }
+        },
+        "evidence_status": { "enum": ["user-stated", "artifact-linked", "verified", "unverified"] },
+        "impact": { "enum": ["toward", "unchanged", "away", "unknown"] },
+        "gap": { "type": "string", "maxLength": 500 },
+        "next_action": { "type": "string", "maxLength": 500 },
+        "sensitivity": { "enum": ["normal", "sensitive"], "default": "normal" }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["review_id", "period", "evidence_ids", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "review_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "period": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "domain_id": { "type": "string", "maxLength": 100 },
+        "evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+        },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 800 },
+        "observed_change": { "type": "string", "maxLength": 800 },
+        "gap": { "type": "string", "maxLength": 800 },
+        "next_focus": { "type": "string", "maxLength": 500 },
+        "sensitivity": { "enum": ["normal", "sensitive"], "default": "normal" }
+      }
+    }
+  }
+}
