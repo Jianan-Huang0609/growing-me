@@ -36,6 +36,7 @@
     : blankTemplateMode
       ? (loadStarter() || Model.blankData())
       : Model.blankData();
+  let trialEdited = false;
   let compassLedger = Ledger.blankLedger();
   let browserFallbackLoaded = false;
   let localFileMode = false;
@@ -665,7 +666,7 @@
             onClick: event => openDirectionWorkbench(dimension.id, item.id, event.currentTarget, 0)
           }));
         } else {
-          grid.append(card({ index: actualIndex, title: item.title, body: item.plan || item.done_definition || '打开补充具体计划与真实记录。', foot: `${statusLabels[item.status]} · ${item.records.length} 条记录`, onClick: () => isolatedPreviewMode ? showToast('教学案例与空白模板均为只读；切换到“我的地图”后再记录') : openTodoDialog(dimension.id, item) }));
+          grid.append(card({ index: actualIndex, title: item.title, body: item.plan || item.done_definition || (publicDemoMode ? '打开试填计划与记录。' : '打开补充具体计划与真实记录。'), foot: `${statusLabels[item.status]} · ${item.records.length} 条记录`, onClick: () => openTodoDialog(dimension.id, item) }));
         }
       } else {
         const index = slotIndex + 1;
@@ -943,8 +944,8 @@
 
     const monthly = stage.querySelector('.room-monthly-dock');
     const monthlyDistance = monthlyStep - phase;
-    const monthlyPresence = clamp(1 - Math.abs(monthlyDistance) / 0.32);
     const monthlyActive = reduced || activeStep === monthlyStep;
+    const monthlyPresence = monthlyActive ? 1 : clamp(1 - Math.abs(monthlyDistance) / 0.8);
     monthly?.style.setProperty('--monthly-presence', monthlyPresence.toFixed(4));
     monthly?.classList.toggle('is-active', monthlyActive);
     if (monthly) {
@@ -1162,7 +1163,7 @@
     const monthlyStep = directions.length + 1;
     const exitStep = directions.length + 2;
     const lastStep = exitStep;
-    focus.innerHTML = `<div class="room-journey room-layout-${scene.layout}" style="--room-height:${Math.max(4, directions.length + 3) * 82}svh"><div class="room-stage" id="roomStage" tabindex="-1"><div class="room-space" aria-hidden="true"></div>${sceneMetaphorMarkup(scene.layout)}<header class="room-hero"><span class="room-number"></span><p class="eyebrow">${publicDemoMode ? '公开虚构演示 · ' : ''}你已经走进这个生活房间</p><h3 tabindex="-1"></h3><p class="focus-desired"></p><div class="room-hero-art" aria-hidden="true"></div><div class="room-hero-cue"><span></span><strong></strong></div></header><div class="room-direction-scene" aria-label="这个房间的长期方向"></div><div class="room-empty-space" hidden><span>这里还没有被替你填满</span><strong>第二层待继续共创</strong><p>有真实线索时再让一个方向出现。</p></div><section class="room-monthly-dock" aria-label="这个月正在发生" aria-hidden="true" inert><div class="room-monthly-head"><div><p class="eyebrow period-eyebrow"></p><h4>这个月正在发生</h4><p>长期方向和月度行动分开保存；这里只放当月真正要推进的事。</p></div><button class="button button-primary focus-add" type="button">+ 添加一件事</button></div><div class="room-focus-tasks"></div></section><section class="room-exit-portal" aria-label="离开这个房间" aria-hidden="true" inert><span>END OF THIS ROOM</span><h4>这一程先到这里</h4><p>回到长廊时，你会停在刚才的房门前，可以从这里继续走。</p><button class="button room-exit-button" type="button">走出房间 · 回到这扇门前 →</button></section><nav class="room-waypoints" aria-label="房间内快速导航"></nav><div class="room-scene-readout" aria-live="polite"><span>入口</span><strong></strong><div class="room-scene-progress" aria-hidden="true"><span></span></div></div><p class="room-scroll-hint">继续滚动；终点可以直接离开</p></div></div>`;
+    focus.innerHTML = `<div class="room-journey room-layout-${scene.layout}" style="--room-height:${Math.max(4, directions.length + 3) * 82}svh"><div class="room-stage" id="roomStage" tabindex="-1"><div class="room-space" aria-hidden="true"></div>${sceneMetaphorMarkup(scene.layout)}<header class="room-hero"><span class="room-number"></span><p class="eyebrow">${publicDemoMode ? '公开虚构演示 · ' : ''}你已经走进这个生活房间</p><h3 tabindex="-1"></h3><p class="focus-desired"></p><div class="room-hero-art" aria-hidden="true"></div><div class="room-hero-cue"><span></span><strong></strong></div></header><div class="room-direction-scene" aria-label="这个房间的长期方向"></div><div class="room-empty-space" hidden><span>这里还没有被替你填满</span><strong>第二层待继续共创</strong><p>有真实线索时再让一个方向出现。</p></div><section class="room-monthly-dock" aria-label="这个月正在发生" aria-hidden="true" inert><div class="room-monthly-head"><div><p class="eyebrow period-eyebrow"></p><h4>这个月正在发生</h4><p class="room-monthly-description"></p></div><div class="room-monthly-actions"><button class="button button-primary focus-add" type="button">+ 添加一件事</button><button class="button focus-reset" type="button" hidden>恢复原始案例</button></div></div><div class="room-focus-tasks"></div></section><section class="room-exit-portal" aria-label="离开这个房间" aria-hidden="true" inert><span>END OF THIS ROOM</span><h4>这一程先到这里</h4><p>回到长廊时，你会停在刚才的房门前，可以从这里继续走。</p><button class="button room-exit-button" type="button">走出房间 · 回到这扇门前 →</button></section><nav class="room-waypoints" aria-label="房间内快速导航"></nav><div class="room-scene-readout" aria-live="polite"><span>入口</span><strong></strong><div class="room-scene-progress" aria-hidden="true"><span></span></div></div><p class="room-scroll-hint">继续滚动；终点可以直接离开</p></div></div>`;
     const stage = focus.querySelector('.room-stage');
     stage.dataset.layout = scene.layout;
     stage.dataset.lastStep = String(lastStep);
@@ -1174,9 +1175,16 @@
     focus.querySelector('.room-hero-cue strong').textContent = scene.hint;
     focus.querySelector('.room-scene-readout strong').textContent = scene.label;
     focus.querySelector('.period-eyebrow').textContent = period?.label || Model.periodLabel(data.meta.active_period);
+    focus.querySelector('.room-monthly-description').textContent = publicDemoMode
+      ? '点开或新增一件事试填。只在本页可见，刷新即恢复虚构案例；请勿填写敏感信息。'
+      : '长期方向和月度行动分开保存；这里只放当月真正要推进的事。';
     const focusAdd = focus.querySelector('.focus-add');
-    focusAdd.hidden = isolatedPreviewMode;
-    if (!isolatedPreviewMode) focusAdd.addEventListener('click', () => openTodoDialog(dimension.id, null));
+    focusAdd.hidden = localFileMode;
+    focusAdd.textContent = publicDemoMode ? '+ 试填一件事' : '+ 添加一件事';
+    if (!localFileMode) focusAdd.addEventListener('click', () => openTodoDialog(dimension.id, null));
+    const focusReset = focus.querySelector('.focus-reset');
+    focusReset.hidden = !publicDemoMode || !trialEdited;
+    if (publicDemoMode) focusReset.addEventListener('click', resetExampleTrial);
     focus.querySelector('.room-exit-button').addEventListener('click', exitRoomFocus);
     const overviewButton = byId('roomOverviewButton');
     overviewButton.hidden = !directions.length;
@@ -1232,7 +1240,7 @@
       button.innerHTML = '<strong></strong><span class="focus-plan"></span><span class="focus-meta"></span>';
       button.querySelector('strong').textContent = todo.title;
       button.querySelector('.focus-plan').textContent = todo.plan || todo.done_definition;
-      button.querySelector('.focus-meta').textContent = `${statusLabels[todo.status]} · ${todo.records.length} 条${publicDemoMode ? '虚构示例' : '真实'}记录`;
+      button.querySelector('.focus-meta').textContent = `${statusLabels[todo.status]} · ${todo.records.length} 条${publicDemoMode ? '示例或试填' : '真实'}记录`;
       button.addEventListener('click', () => openTodoDialog(dimension.id, todo));
       tasks.append(button);
     });
@@ -1247,6 +1255,35 @@
   function resolveDirectionWorkbenchReturnTrigger(context) {
     if (context?.kind === 'overview') return byId('roomOverviewButton');
     return [...document.querySelectorAll('.room-direction-object')].find(node => node.dataset.directionId === context?.directionId) || null;
+  }
+  const directionEditFields = {
+    title: 'directionEditName',
+    desired_state: 'directionEditGoal',
+    anti_vision: 'directionEditBaseline',
+    input: 'directionEditInput',
+    practice: 'directionEditPractice',
+    output: 'directionEditOutput',
+    review: 'directionEditReview',
+    evidence: 'directionEditEvidence'
+  };
+  function openDirectionEditDialog(field = 'title') {
+    if (!publicDemoMode || !activeWorkbench) return;
+    const { dimensionId, directionId } = activeWorkbench;
+    const dimension = data.dimensions.find(item => item.id === dimensionId);
+    const direction = dimension?.support_factors?.find(item => item.id === directionId);
+    if (!direction) return;
+    const form = byId('directionEditForm');
+    form.dataset.dimensionId = dimensionId;
+    form.dataset.directionId = directionId;
+    byId('directionEditContext').textContent = `${dimension.title} · ${direction.title} · 本页试填`;
+    byId('directionEditName').value = direction.title;
+    byId('directionEditGoal').value = direction.desired_state || '';
+    byId('directionEditBaseline').value = direction.anti_vision || '';
+    for (const key of ['input', 'practice', 'output', 'review', 'evidence']) {
+      byId(directionEditFields[key]).value = direction.operating_loop?.[key] || '';
+    }
+    byId('directionEditDialog').showModal();
+    requestAnimationFrame(() => byId(directionEditFields[field] || directionEditFields.title).focus({ preventScroll: false }));
   }
   function openDirectionWorkbench(dimensionId, directionId, trigger = null, savedRoomScrollTop = null, returnContext = null) {
     const dimension = data.dimensions.find(item => item.id === dimensionId);
@@ -1275,22 +1312,29 @@
     byId('directionWorkbenchContext').textContent = `${publicDemoMode ? '公开虚构演示 · ' : ''}${dimension.title} · 长期方向`;
     byId('directionWorkbenchTitle').textContent = direction.title;
     byId('directionWorkbenchStatus').textContent = directionStatusText(direction.status);
+    byId('workbenchTrialNotice').hidden = !publicDemoMode;
+    dialog.querySelectorAll('[data-direction-field]').forEach(button => { button.hidden = !publicDemoMode; });
+    byId('addWorkbenchProjectButton').hidden = !publicDemoMode;
+    byId('resetDirectionTrialButton').hidden = !publicDemoMode || !trialEdited;
     byId('directionWorkbenchGoal').textContent = direction.desired_state || direction.summary || '这一项的目标还没有记录，待继续共创。';
     byId('directionWorkbenchBaseline').textContent = direction.anti_vision || '尚未记录。之后可以补充这个方向最不希望滑向的状态。';
     const operatingLoop = direction.operating_loop || {};
     byId('directionWorkbenchInput').textContent = operatingLoop.input || '把真实经历、观察和新信息带进来。';
     byId('directionWorkbenchPractice').textContent = operatingLoop.practice || '只保留能够稳定重复、又真正靠近目标的实践。';
     byId('directionWorkbenchOutput').textContent = operatingLoop.output || '形成一个可以被看见、使用或验证的结果。';
-    byId('directionWorkbenchReview').textContent = operatingLoop.review ? `${operatingLoop.review}回看一次，再决定继续或调整。` : '确认真实变化，再决定继续或调整。';
-    byId('directionWorkbenchCadence').textContent = operatingLoop.practice
-      ? `${operatingLoop.practice}${operatingLoop.review ? `；${operatingLoop.review}回看。` : '。'}`
-      : '尚未记录。之后只留下能稳定重复、又真正靠近目标的行动。';
+    const reviewText = operatingLoop.review && /^每(?:天|日|周|月|季度|年|半年|[一二三四五六七八九十\d]+(?:天|周|月|年))$/.test(operatingLoop.review)
+      ? `${operatingLoop.review}回看一次，再决定继续或调整。`
+      : (operatingLoop.review || '确认真实变化，再决定继续或调整。');
+    byId('directionWorkbenchReview').textContent = reviewText;
+    byId('directionWorkbenchCadence').textContent = [operatingLoop.practice?.replace(/[。；;]+$/, ''), operatingLoop.review ? reviewText : ''].filter(Boolean).join('；')
+      || '尚未记录。之后只留下能稳定重复、又真正靠近目标的行动。';
     byId('directionWorkbenchProjects').textContent = linkedTodos.length
-      ? `${linkedTodos.length} 件本月行动正在承接这个方向；打开下方行动可以继续追加真实记录。`
+      ? `${linkedTodos.length} 件本月行动正在承接这个方向；打开下方行动可以继续${publicDemoMode ? '试填' : '追加真实'}记录。`
       : (operatingLoop.output
         ? `本月未选为重点。长期可见输出是：${operatingLoop.output}`
         : '本月还没有把它选为重点。它可以继续安静存在，不代表落后。');
-    byId('addDirectionTodoButton').hidden = isolatedPreviewMode;
+    byId('addDirectionTodoButton').hidden = localFileMode;
+    byId('addDirectionTodoButton').textContent = publicDemoMode ? '+ 试填一件行动' : '+ 绑定一件行动';
 
     const directionNav = byId('directionWorkbenchNav');
     directionNav.replaceChildren();
@@ -1316,10 +1360,14 @@
 
     const evidenceList = byId('directionWorkbenchEvidence');
     evidenceList.replaceChildren();
-    if (!evidence.length) {
-      evidenceList.append(workbenchEmpty(operatingLoop.evidence
-        ? `前进证据：${operatingLoop.evidence}`
-        : '还没有回流记录。完成、反馈、数据或复盘都可以成为证据。'));
+    if (operatingLoop.evidence) {
+      const note = document.createElement('p');
+      note.className = 'workbench-evidence-note';
+      note.textContent = `观察线索：${operatingLoop.evidence}`;
+      evidenceList.append(note);
+    }
+    if (!evidence.length && !operatingLoop.evidence) {
+      evidenceList.append(workbenchEmpty('还没有回流记录。完成、反馈、数据或复盘都可以成为证据。'));
     } else {
       evidence.slice(-4).reverse().forEach(record => {
         const item = document.createElement('article');
@@ -1345,19 +1393,19 @@
         const title = document.createElement('strong');
         title.textContent = todo.title;
         const meta = document.createElement('span');
-        meta.textContent = `${statusLabels[todo.status]} · ${todo.records.length} 条${publicDemoMode ? '虚构示例' : '真实'}记录`;
+        meta.textContent = `${statusLabels[todo.status]} · ${todo.records.length} 条${publicDemoMode ? '示例或试填' : '真实'}记录`;
         const plan = document.createElement('p');
         plan.textContent = todo.plan || todo.done_definition || '没有补充计划说明。';
         button.append(title, plan, meta);
-        if (isolatedPreviewMode) {
-          button.classList.add('is-readonly');
-          button.setAttribute('aria-disabled', 'true');
-        } else {
+        if (!localFileMode) {
           button.addEventListener('click', () => {
             workbenchTransitioningToTodo = true;
             dialog.close();
             openTodoDialog(dimensionId, todo, directionId, true, directionWorkbenchReturn);
           });
+        } else {
+          button.classList.add('is-readonly');
+          button.setAttribute('aria-disabled', 'true');
         }
         actionList.append(button);
       });
@@ -1428,6 +1476,7 @@
   }
   function render() {
     byId('pageTitle').textContent = data.meta.title || '我的人生地图';
+    byId('resetExampleButton').hidden = !publicDemoMode || !trialEdited;
     if (blankTemplateMode) byId('progressiveFlow').innerHTML = data.dimensions.length
       ? '<strong>当前浏览器中的地图</strong><span>查看长期方向</span><b aria-hidden="true">→</b><span>继续与 AI 校准</span><b aria-hidden="true">→</b><span>导出备份</span>'
       : '<strong>从空白开始</strong><span>复制 Skill 对话</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>';
@@ -1447,11 +1496,25 @@
     if (current) renderDimensionGrid(current); else { currentDimensionId = null; renderRootGrid(); }
     renderRooms();
   }
-  function openTodoDialog(dimensionId, todo, directionId = todo?.direction_id || '', returnToWorkbench = false, returnContext = null) {
-    if (isolatedPreviewMode) {
-      showToast('教学案例与空白模板均为只读；切换到“我的地图”后再记录');
-      return;
+  function resetExampleTrial() {
+    if (!publicDemoMode || !trialEdited) return;
+    const savedRoomScrollTop = focusedRoomId ? byId('roomFocus').scrollTop : null;
+    const workbench = activeWorkbench ? { ...activeWorkbench } : null;
+    data = Model.clone(DEMO);
+    trialEdited = false;
+    render();
+    if (focusedRoomId) {
+      corridorTrigger = corridorDoorButtons.get(focusedRoomId) || corridorTrigger;
+      renderRoomFocus(focusedRoomId);
+      byId('roomFocus').scrollTop = savedRoomScrollTop;
+      roomJourneyTarget = clamp(savedRoomScrollTop / roomJourneyRange());
+      roomJourneyCurrent = roomJourneyTarget;
+      scheduleRoomJourneyUpdate();
     }
+    if (workbench) openDirectionWorkbench(workbench.dimensionId, workbench.directionId);
+    showToast('已恢复原始虚构案例；本页试填已清除');
+  }
+  function openTodoDialog(dimensionId, todo, directionId = todo?.direction_id || '', returnToWorkbench = false, returnContext = null) {
     if (localFileMode) {
       showToast('这里由本地私人地图控制；请在对话里告诉 coding agent 要记录什么');
       return;
@@ -1462,7 +1525,15 @@
     byId('todoContext').textContent = direction
       ? `${dimension.title} · ${direction.title} · ${Model.periodLabel(data.meta.active_period)}`
       : `${dimension.title} · ${Model.periodLabel(data.meta.active_period)}`;
-    byId('todoDialogTitle').textContent = todo ? '更新计划与记录' : '添加一件具体的事';
+    byId('todoDialogTitle').textContent = publicDemoMode
+      ? (todo ? '试填计划与记录' : '试填一件具体的事')
+      : (todo ? '更新计划与记录' : '添加一件具体的事');
+    byId('todoTrialNotice').hidden = !publicDemoMode;
+    byId('todoRecordLabel').textContent = publicDemoMode ? '追加一条试填记录' : '追加一条真实记录';
+    byId('todoRecord').placeholder = publicDemoMode
+      ? '试写一条进展；留空则不新增记录。刷新后会恢复原案例。'
+      : '今天实际发生了什么？留空则不新增记录。';
+    byId('saveTodoButton').textContent = publicDemoMode ? '放进本页试填' : '保存';
     byId('todoId').value = todo?.id || '';
     byId('todoDirectionId').value = direction?.id || '';
     byId('todoDirectionLink').hidden = !direction;
@@ -1622,12 +1693,56 @@
   });
   byId('closeDirectionWorkbenchButton').addEventListener('click', () => byId('directionWorkbenchDialog').close());
   byId('closeDirectionWorkbenchFooterButton').addEventListener('click', () => byId('directionWorkbenchDialog').close());
-  byId('addDirectionTodoButton').addEventListener('click', () => {
+  byId('resetDirectionTrialButton').addEventListener('click', resetExampleTrial);
+  byId('directionWorkbenchDialog').querySelectorAll('[data-direction-field]').forEach(button => {
+    button.addEventListener('click', () => openDirectionEditDialog(button.dataset.directionField));
+  });
+  byId('closeDirectionEditButton').addEventListener('click', () => byId('directionEditDialog').close());
+  byId('cancelDirectionEditButton').addEventListener('click', () => byId('directionEditDialog').close());
+  function openNewWorkbenchTodo() {
     const context = activeWorkbench ? { ...activeWorkbench } : null;
     if (!context) return;
     workbenchTransitioningToTodo = true;
     byId('directionWorkbenchDialog').close();
     openTodoDialog(context.dimensionId, null, context.directionId, true, directionWorkbenchReturn);
+  }
+  byId('addDirectionTodoButton').addEventListener('click', openNewWorkbenchTodo);
+  byId('addWorkbenchProjectButton').addEventListener('click', openNewWorkbenchTodo);
+  byId('directionEditForm').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!publicDemoMode) return;
+    const form = event.currentTarget;
+    const { dimensionId, directionId } = form.dataset;
+    const next = Model.clone(data);
+    const direction = next.dimensions.find(item => item.id === dimensionId)?.support_factors?.find(item => item.id === directionId);
+    if (!direction) { showToast('没有找到这个长期方向'); return; }
+    direction.title = byId('directionEditName').value.trim();
+    direction.desired_state = byId('directionEditGoal').value.trim();
+    direction.anti_vision = byId('directionEditBaseline').value.trim();
+    const operatingLoop = { ...(direction.operating_loop || {}) };
+    for (const key of ['input', 'practice', 'output', 'review', 'evidence']) {
+      operatingLoop[key] = byId(directionEditFields[key]).value.trim();
+    }
+    direction.operating_loop = operatingLoop;
+    next.meta.updated_at = new Date().toISOString();
+    try {
+      Model.assertCanonicalMonthly(next);
+      data = Model.normalizeMonthly(next);
+      trialEdited = true;
+      const savedRoomScrollTop = focusedRoomId ? byId('roomFocus').scrollTop : null;
+      byId('directionEditDialog').close();
+      render();
+      if (focusedRoomId) {
+        corridorTrigger = corridorDoorButtons.get(focusedRoomId) || corridorTrigger;
+        renderRoomFocus(focusedRoomId);
+        byId('roomFocus').scrollTop = savedRoomScrollTop;
+        roomJourneyTarget = clamp(savedRoomScrollTop / roomJourneyRange());
+        roomJourneyCurrent = roomJourneyTarget;
+        scheduleRoomJourneyUpdate();
+      }
+      openDirectionWorkbench(dimensionId, directionId);
+      showToast('工作台试填已更新；刷新即恢复原始案例');
+    } catch (error) { showToast(error.message); }
   });
   byId('directionWorkbenchDialog').addEventListener('close', () => {
     const dialog = byId('directionWorkbenchDialog');
@@ -1726,7 +1841,8 @@
       window.location.assign(demoUrl.href);
       return;
     }
-    data = Model.normalizeMonthly(DEMO);
+    data = Model.clone(DEMO);
+    trialEdited = false;
     compassLedger = Ledger.blankLedger();
     currentDimensionId = null;
     dimensionLayer = 'directions';
@@ -1740,7 +1856,7 @@
       return;
     }
     if (publicDemoMode) {
-      data = Model.normalizeMonthly(DEMO); currentDimensionId = null; dimensionLayer = 'directions'; render(); showToast('已重置演示；私人地图没有变化');
+      data = Model.clone(DEMO); trialEdited = false; currentDimensionId = null; dimensionLayer = 'directions'; render(); showToast('已重置演示；私人地图没有变化');
       return;
     }
     if (blankTemplateMode) {
@@ -1757,9 +1873,10 @@
       : blankTemplateMode
         ? 'growing-me-blank-template.json'
         : 'life-grid-monthly.json';
-    download(filename, `${JSON.stringify(data, null, 2)}\n`);
-    showToast(publicDemoMode ? '已导出虚构教学案例' : blankTemplateMode ? '已导出空白模板' : '已导出月度地图备份');
+    download(filename, `${JSON.stringify(publicDemoMode ? DEMO : data, null, 2)}\n`);
+    showToast(publicDemoMode ? '已导出原始虚构案例；不含本页试填' : blankTemplateMode ? '已导出空白模板' : '已导出月度地图备份');
   });
+  byId('resetExampleButton').addEventListener('click', resetExampleTrial);
   byId('fileInput').addEventListener('change', async event => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -1804,19 +1921,26 @@
       plan: byId('todoPlan').value.trim(),
       done_definition: byId('todoDone').value.trim(),
       status: byId('todoStatus').value,
-      provenance: existing?.provenance || 'user-confirmed',
+      provenance: publicDemoMode ? 'user' : (existing?.provenance || 'user-confirmed'),
       records: existing?.records || []
     };
     try {
       data = Model.upsertTodo(data, dimensionId, todo, byId('todoRecord').value);
-      persist(); render();
+      if (publicDemoMode) trialEdited = true;
+      else persist();
+      render();
       if (savedRoomScrollTop !== null && focusedRoomId) {
+        corridorTrigger = corridorDoorButtons.get(focusedRoomId) || corridorTrigger;
+        renderRoomFocus(focusedRoomId);
         byId('roomFocus').scrollTop = savedRoomScrollTop;
         roomJourneyTarget = clamp(savedRoomScrollTop / roomJourneyRange());
         roomJourneyCurrent = roomJourneyTarget;
         scheduleRoomJourneyUpdate();
       }
-      byId('todoDialog').close(); showToast('计划与记录已保存，两种视图已经同步');
+      byId('todoDialog').close();
+      showToast(publicDemoMode
+        ? '已加入本页试填；刷新即恢复原始案例，导出不包含试填'
+        : '计划与记录已保存，两种视图已经同步');
     } catch (error) { showToast(error.message); }
   });
   document.addEventListener('keydown', event => {
@@ -1884,9 +2008,9 @@
     : blankTemplateMode
       ? '<strong>从空白开始</strong><span>复制 Skill 对话</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>'
       : '<strong>私人地图在本机</strong><span>运行 ./start</span><b aria-hidden="true">→</b><span>和 AI 逐问确认</span><b aria-hidden="true">→</b><span>本地文件自动刷新</span>';
-  byId('directionWorkbenchEvidenceHeading').textContent = publicDemoMode ? '示例记录' : '真实证据';
+  byId('directionWorkbenchEvidenceHeading').textContent = publicDemoMode ? '示例与试填记录' : '真实证据';
   byId('directionWorkbenchFooterText').textContent = publicDemoMode
-    ? '本案例的行动与记录均为虚构，只展示方向如何在日常中持续更新。'
+    ? '案例原始行动与记录均为虚构；你的试填只在本页可见，刷新即恢复，也不会进入导出。'
     : '这里只收真实发生的内容；未聊清的部分会继续留白。';
   if (isolatedPreviewMode) {
     document.body.classList.toggle('public-demo-mode', publicDemoMode);
@@ -1899,7 +2023,7 @@
   }
   if (publicDemoMode) {
     byId('importButton').hidden = true;
-    byId('exportButton').textContent = '导出案例';
+    byId('exportButton').textContent = '导出原始案例';
     byId('advancedTools').hidden = true;
   }
   if (blankTemplateMode) byId('advancedTools').hidden = true;
