@@ -5,7 +5,7 @@
   const STORAGE_KEY = 'growing-me-life-grid-monthly-v1';
   const STARTER_STORAGE_KEY = 'growing-me-life-grid-starter-v1';
   const LEDGER_STORAGE_KEY = 'growing-me-life-compass-ledger-v1';
-  const PUBLIC_SKILL_URL = 'https://github.com/Jianan-Huang0609/growing-me-life-grid-starter/tree/main/skills/growing-me-life-grid-monthly';
+  const PUBLIC_PROMPT_URL = './life-grid-monthly-prompt.md';
   const TEACHING_EXAMPLE_URL = '../examples/teaching-life-grid-monthly.json';
   const LOCAL_SYNC_INTERVAL_MS = 1500;
   const urlParams = new URLSearchParams(window.location.search);
@@ -1479,19 +1479,19 @@
     byId('resetExampleButton').hidden = !publicDemoMode || !trialEdited;
     if (blankTemplateMode) byId('progressiveFlow').innerHTML = data.dimensions.length
       ? '<strong>当前浏览器中的地图</strong><span>查看长期方向</span><b aria-hidden="true">→</b><span>继续与 AI 校准</span><b aria-hidden="true">→</b><span>导出备份</span>'
-      : '<strong>从空白开始</strong><span>复制 Skill 对话</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>';
+      : '<strong>从空白开始</strong><span>复制访谈 Prompt</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>';
     const shapedRooms = data.dimensions.filter(dimension => dimension.support_factors?.length).length;
     byId('mapSummary').textContent = publicDemoMode
       ? '进入任意房间，打开一个长期方向，看看它怎样承接少量行动与后续记录。'
       : blankTemplateMode
         ? data.dimensions.length
           ? '这里呈现你导入到当前浏览器的地图。可以查看两层九宫格和房间；重要内容请导出备份。'
-          : '这里没有预设人生答案。复制给 Coding Agent，从一个普通但理想的日子开始；手动导入只暂存在当前浏览器。'
+          : '这里没有预设人生答案。复制访谈 Prompt，从一个普通但理想的日子开始；手动导入只暂存在当前浏览器。'
         : data.dimensions.length
         ? `${data.dimensions.length} 个人生板块已经落位，${shapedRooms} 个房间正在形成第二层。未完成的位置会继续保留。`
         : localFileMode
           ? '空白网站已连接本地私人地图；和 coding agent 对话后，这里会自动长出来。'
-          : '这张网站已经是你的空白人生地图。复制 Skill 开始聊；每确认一部分，就把本轮结果导回来，让房间一点点亮起来。';
+          : '这张网站是空白起点。复制访谈 Prompt 开始聊；确认后可在本地使用 Skill 更新私人地图，或把完整合法 JSON 手动导入这里。';
     const current = data.dimensions.find(item => item.id === currentDimensionId);
     if (current) renderDimensionGrid(current); else { currentDimensionId = null; renderRootGrid(); }
     renderRooms();
@@ -1560,27 +1560,36 @@
     byId('todoDialog').showModal();
   }
 
-  async function copySkill() {
-    const handoff = [
-      '请使用 Growing Me 月度人生地图 Skill，陪我通过对话形成自己的两层人生地图。',
-      '',
-      '请先完整读取仓库中的 AGENTS.md 与 skills/growing-me-life-grid-monthly/SKILL.md；仓库尚未克隆时，先指导我克隆。',
-      '有本地文件权限时，运行 ./start，使用 personal 入口和 private/life-grid-monthly.json。',
-      '从欢迎语和未来三到五年的一个普通理想日开始，每次只问一个问题。保留我的原话；AI 提炼先标 candidate，只有我明确确认后才写入。',
-      '每次写入前展示确切变更，重读最新 revision，校验并从私人文件回读；网站只是这份文件的只读呈现。',
-      '未聊到的内容继续留白，64 个方向不是 64 项待办；全局每月只选 1–3 个重点。',
-      '如果你确实无法访问本地文件：完成访谈并等我确认后，再交付一份符合 Schema 的完整 JSON，供我手工导入 Blank 页面。该导入只保存在当前浏览器，请提醒我导出备份；不要声称它与 Personal 自动同步。',
-      '',
-      '仓库内找不到 Skill 时，再读取公开版本：',
-      PUBLIC_SKILL_URL,
-    ].join('\n');
-    const copied = await copyText(handoff);
-    if (copied) {
-      showToast('已复制给 Coding Agent 的启动指令');
-      return;
+  let cachedPublicPrompt = null;
+  async function loadPublicPrompt() {
+    if (cachedPublicPrompt) return cachedPublicPrompt;
+    const response = await fetch(PUBLIC_PROMPT_URL);
+    if (!response.ok) throw new Error(`访谈 Prompt 加载失败（HTTP ${response.status}）`);
+    const raw = await response.text();
+    const start = '<!-- COPY_START -->';
+    const end = '<!-- COPY_END -->';
+    const from = raw.indexOf(start);
+    const to = raw.indexOf(end, from + start.length);
+    if (from < 0 || to < 0) throw new Error('访谈 Prompt 缺少可复制内容');
+    cachedPublicPrompt = raw.slice(from + start.length, to).trim();
+    return cachedPublicPrompt;
+  }
+  async function copyPrompt() {
+    try {
+      const prompt = await loadPublicPrompt();
+      byId('promptPreviewText').value = prompt;
+      if (await copyText(prompt)) {
+        if (byId('promptPreviewDialog').open) byId('promptPreviewDialog').close();
+        showToast('已复制访谈 Prompt；粘贴到 AI 对话中即可开始');
+      } else {
+        if (!byId('promptPreviewDialog').open) byId('promptPreviewDialog').showModal();
+        byId('promptPreviewText').focus();
+        byId('promptPreviewText').select();
+        showToast('自动复制未成功；已显示全文供手动复制');
+      }
+    } catch (error) {
+      showToast(`${error.message}；可从开始页阅读 Prompt 全文`);
     }
-    window.open(PUBLIC_SKILL_URL, '_blank', 'noopener,noreferrer');
-    showToast('浏览器未允许复制，已打开公开 Skill');
   }
   function openImport() {
     if (localFileMode) {
@@ -1829,7 +1838,9 @@
       });
     }
   });
-  byId('copySkillButton').addEventListener('click', copySkill);
+  byId('copyPromptButton').addEventListener('click', copyPrompt);
+  byId('retryCopyPromptButton').addEventListener('click', copyPrompt);
+  byId('closePromptPreviewButton').addEventListener('click', () => byId('promptPreviewDialog').close());
   byId('importButton').addEventListener('click', openImport);
   byId('loadDemoButton').addEventListener('click', () => {
     closeAdvancedTools();
@@ -1947,7 +1958,7 @@
     if (corridorLeaving) { event.preventDefault(); return; }
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-    if (byId('todoDialog').open || byId('importDialog').open || byId('directionWorkbenchDialog').open || byId('compassDialog').open) return;
+    if (byId('todoDialog').open || byId('importDialog').open || byId('promptPreviewDialog').open || byId('directionWorkbenchDialog').open || byId('compassDialog').open) return;
     if (focusedRoomId) {
       if (event.key === 'Escape') {
         event.preventDefault();
@@ -2006,7 +2017,7 @@
   byId('progressiveFlow').innerHTML = publicDemoMode
     ? '<strong>这个案例怎样运转</strong><span>长期方向</span><b aria-hidden="true">→</b><span>少量本月行动</span><b aria-hidden="true">→</b><span>示例记录回到方向</span>'
     : blankTemplateMode
-      ? '<strong>从空白开始</strong><span>复制 Skill 对话</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>'
+      ? '<strong>从空白开始</strong><span>复制访谈 Prompt</span><b aria-hidden="true">→</b><span>确认自己的方向</span><b aria-hidden="true">→</b><span>本地同步或手动导入</span>'
       : '<strong>私人地图在本机</strong><span>运行 ./start</span><b aria-hidden="true">→</b><span>和 AI 逐问确认</span><b aria-hidden="true">→</b><span>本地文件自动刷新</span>';
   byId('directionWorkbenchEvidenceHeading').textContent = publicDemoMode ? '示例与试填记录' : '真实证据';
   byId('directionWorkbenchFooterText').textContent = publicDemoMode
@@ -2018,7 +2029,7 @@
     byId('demoBannerTitle').textContent = publicDemoMode ? '虚构案例 · 非真人资料' : '可以直接开始使用的空白版';
     byId('demoBannerText').textContent = publicDemoMode
       ? '8 个房间、64 个方向及 3 件本月重点，只用于说明结构与运行方式。'
-      : '复制 Skill 开始对话；有本地文件权限时使用 Personal，手动导入只暂存在当前浏览器。未谈到的内容继续留白。';
+      : '复制访谈 Prompt 开始对话；有本地文件权限时使用 Personal，手动导入只暂存在当前浏览器。未谈到的内容继续留白。';
     byId('loadDemoButton').textContent = publicDemoMode ? '重置完整教学案例' : '打开完整教学案例';
   }
   if (publicDemoMode) {
@@ -2026,6 +2037,7 @@
     byId('exportButton').textContent = '导出原始案例';
     byId('advancedTools').hidden = true;
   }
+  byId('corridorOutroStartLink').hidden = !publicDemoMode;
   if (blankTemplateMode) byId('advancedTools').hidden = true;
   byId('compassButton').hidden = !experimentalLedgerMode;
   render();

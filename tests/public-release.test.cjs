@@ -25,13 +25,36 @@ test('the teaching case is complete, fictional, and separate from the blank star
   assert.equal(blank.center.status, 'raw');
 });
 
-test('the public site routes to the fictional example while blank import keeps its own storage', () => {
+test('the public site links separate Example and Blank entries while Blank keeps its own storage', () => {
   const entry = read('public/index.html');
   const app = read('monthly/app.js');
   assert.match(entry, /monthly\/\?mode=example&amp;view=grid/);
   assert.match(app, /STARTER_STORAGE_KEY = 'growing-me-life-grid-starter-v1'/);
   assert.match(app, /if \(blankTemplateMode && incoming\.meta\.visibility === 'demo'\)/);
   assert.match(app, /const DEMO = publicDemoMode \? await loadTeachingExample\(\) : null/);
+});
+
+test('both public copy buttons use the same stand-alone interview Prompt', () => {
+  const entry = read('public/index.html');
+  const app = read('monthly/app.js');
+  const html = read('monthly/index.html');
+  const prompt = read('monthly/life-grid-monthly-prompt.md');
+  assert.equal(prompt, read('skills/growing-me-life-grid-monthly/references/life-grid-monthly-prompt.md'));
+  const start = prompt.indexOf('<!-- COPY_START -->');
+  const end = prompt.indexOf('<!-- COPY_END -->');
+  assert.ok(start >= 0 && end > start, 'the public Prompt must have one copyable body');
+  const body = prompt.slice(start, end);
+  assert.match(body, /如果你暂时访问不到仓库/);
+  assert.match(body, /用自然的欢迎语开始/);
+  assert.match(body, /一次只问我一个尚未回答的问题/);
+  assert.match(entry, /monthly\/life-grid-monthly-prompt\.md/);
+  assert.match(app, /PUBLIC_PROMPT_URL = '\.\/life-grid-monthly-prompt\.md'/);
+  assert.match(app, /fetch\(PUBLIC_PROMPT_URL\)/);
+  assert.match(entry, /COPY_START/);
+  assert.match(app, /COPY_START/);
+  assert.match(html, /id="copyPromptButton"[^>]*>复制访谈 Prompt/);
+  assert.match(html, /id="getSkillLink"[^>]*>获取完整 Skill/);
+  assert.doesNotMatch(app, /function copySkill\(/);
 });
 
 test('Example trial additions and edits leave the original and blank fixtures untouched', () => {

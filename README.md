@@ -1,26 +1,20 @@
-# Growing Me · Clone-first 两层人生地图
+# Growing Me · 用对话建立两层人生地图
 
-Growing Me 是一个可以直接克隆到本地的 **AI 多轮访谈 + 人生地图可视化** 模板。Coding agent 读取仓库内的 Skill，和用户逐轮确认中心愿景、八个人生房间与每个房间的长期方向，并把结果写入本机的私人地图文件。已经打开的网站会自动读取该文件并刷新。
+Growing Me 把多轮对话和可视化地图放在同一个开源仓库里：AI 逐问探索，用户确认中心愿景、生活房间与长期方向；在克隆后的本地流程中，网站会呈现已确认的内容。它目前是 **shareable alpha**，适合演示和试用；完整移动端、无障碍与非作者用户的独立验收仍在进行，不宜称为成熟产品。
 
-公开仓库只保存空白框架、虚构演示、Skill、Schema、代码、测试与部署说明；真实人生数据默认留在本机，不进入 Git。
+## 公开入口：先选一条路径
 
-当前阶段是 **shareable alpha**：核心对话、私有文件与双视图路径已经形成，但仍需要完整三模式回归、无障碍与移动端核验，以及非作者用户的独立试用。这里不把“能运行”描述成“已经成熟”。
+- [Growing Me 开始页](https://jianan-huang0609.github.io/growing-me-life-grid-starter/)——选择演示、复制 Prompt、下载 Skill 或打开空白起点；根页不再自动跳到案例。
+- [打开完整 Example：房间长卷](https://jianan-huang0609.github.io/growing-me-life-grid-starter/monthly/?mode=example&view=rooms)——录视频建议直接用这个链接，不需要克隆。八个房间与长期方向是独立编写的**虚构教学案例**，不是作者真实数据的脱敏版。
+- [打开 Blank：新用户的空白起点](https://jianan-huang0609.github.io/growing-me-life-grid-starter/monthly/?mode=blank&view=grid)——这是另一条独立链接，不会把 Example 的内容带进来。
 
-## 一套引擎，三种体验
+Example 可以从长廊推门进入房间，点击一个方向打开工作台，临时修改目标、反面校准、输入、实践、输出、前进证据描述与回看，也可试填本月行动。修改只在当前页面可见：**刷新或重置即还原；导出仍是原始虚构案例，不包含试填。** 这适合展示交互，不是长期保存个人地图的入口，也不能把示例记录当作真实进展。
 
-三个独立入口共用同一套界面引擎、Schema 和房间逻辑，但数据来源严格隔离：
+## 开始自己的地图：Prompt + Skill + 本地网站
 
-| 模式 | 地址参数 | 数据来源 | 用途与边界 |
-| --- | --- | --- | --- |
-| Personal | `?mode=personal` | 本机 `private/life-grid-monthly.json` | 真实个人版本；网站只读，只有 coding agent 在用户明确确认后才能更新私人文件 |
-| Example | `?mode=example` | 独立编写的完整虚构案例 | 教学与试填；八个房间和 64 个方向的身份固定，访客可在方向工作台临时改写、补入各板块内容，也可试填本月行动；刷新恢复原案例，不是作者或试用者资料的脱敏版，也不证明真实使用效果 |
-| Blank | `?mode=blank` | 首次打开为空的起点 | 展示新用户尚未对话、尚未导入时的状态；导入后仅在当前浏览器保存，不借用 Example 或 Personal 的内容 |
+想直接拿给 coding agent 试，可以在[开始页](https://jianan-huang0609.github.io/growing-me-life-grid-starter/)复制 Prompt，或阅读 [Prompt 原文](skills/growing-me-life-grid-monthly/references/life-grid-monthly-prompt.md)；想看完整访谈与安全写入规则，读 [Growing Me Skill](skills/growing-me-life-grid-monthly/SKILL.md)，或[下载完整 Skill 包](https://jianan-huang0609.github.io/growing-me-life-grid-starter/downloads/growing-me-life-grid-monthly-skill.zip)。Prompt 是对话入口，Skill 是访谈与写入规则；它们不会仅凭一段聊天自动把内容保存到公开 Example。
 
-这不是三个会逐渐漂移的仓库，也不是一个页面上的三个切换标签。Personal 是个人数据投影，Example 是自成一体的虚构教学样本，Blank 是独立的新用户起点；用户从各自链接进入，页面不放一个醒目的全局模式切换器。Example 的原始案例不变；访客可在房间的方向工作台临时修改或补入目标、反面校准、输入、实践、输出、前进证据描述与回看内容，本月行动也可试填。刷新即还原；试填不写入浏览器存储或私人地图，导出仍是原始虚构案例。Blank 的浏览器暂存不能变成 Personal 的权威文件。
-
-当前公开打磨优先完整 Example：用户进入后直接看完一个内容完整的虚构案例，不在案例中插入 Blank 模板 CTA 或初始化选择。Blank 留给真正准备开始的新用户单独打开。
-
-## 立即开始
+要让自己确认的地图持续保存在本机，并边聊边更新本地网站，在终端运行：
 
 ```bash
 git clone https://github.com/Jianan-Huang0609/growing-me-life-grid-starter.git
@@ -28,38 +22,25 @@ cd growing-me-life-grid-starter
 ./start
 ```
 
-`./start` 会在需要时从空白模板初始化：
+把终端给出的 `/monthly/?mode=personal` 地址打开，在**这个仓库目录**中的 coding agent 会话里发送：
 
-```text
-private/life-grid-monthly.json
-```
+> 请先读取 `AGENTS.md` 和 `skills/growing-me-life-grid-monthly/SKILL.md`，再读取 `private/life-grid-monthly.json`。请从我的人生地图开始或继续访谈，一次只问一个问题；把归纳先作为候选，等我确认具体变化后再按 Skill 写入并回读私人文件。
 
-然后在仅本机可访问的地址启动网站。打开终端显示的 `/monthly/?mode=personal` 地址，再在当前仓库的 coding agent 会话中说：
+无需先把 Skill 安装成插件：在仓库目录里让 agent 读取上述文件即可。若你用的 coding agent 支持本地 Skills，也可下载 ZIP，解压后把整个 `growing-me-life-grid-monthly` 文件夹放进它支持的 Skills 目录，再显式调用该 Skill；要更新这份网站，agent 仍须能访问你克隆的仓库与本地私人文件。
 
-> 请读取 `skills/growing-me-life-grid-monthly/SKILL.md`，从我的私人地图继续访谈。
+`./start` 在首次运行时创建空白的 `private/life-grid-monthly.json`，并只在本机启动网站。之后 agent 会先读取已有内容，避免反复从头问；每次保存都要经过用户对具体变化的明确确认。真实数据默认只在这个 Git 忽略的私人文件里，公开网站不能读取它。
 
-第一次使用时，agent 会从“未来三到五年，你真正想过怎样的生活？”开始；继续使用时，它会先读取已有地图与 revision，再从尚未确认的部分继续。
+如果暂时不能克隆，可以在公开开始页复制独立访谈 Prompt，与 AI 先聊出自己的候选地图。这是 **chat-only** 路径：AI 无法仅凭这段 Prompt 更新你本机的私人文件或公开网站。需要在网页查看结果时，先让 AI 取得网站 Schema 与当前完整地图，再经你明确确认后交付**完整合法 JSON**，手工导入 Blank；没有这些材料时先保留候选摘要，不把它冒充可导入文件。Blank 只在当前浏览器暂存，不会同步到本地 Personal，也不是跨设备备份，重要内容要自己导出。
 
-空白私人地图不会预先替用户填写答案。要先了解完成后的颗粒度，可以打开虚构教学案例：
+## 三个入口的边界
 
-```text
-http://127.0.0.1:4178/monthly/?mode=example&view=rooms
-```
+| 入口 | 内容来源 | 是否会持续保存试填 |
+| --- | --- | --- |
+| Personal（`?mode=personal`） | 本机 `private/life-grid-monthly.json` | agent 在用户明确确认后更新私人文件；网站只读 |
+| Example（`?mode=example`） | 独立编写的虚构案例 | 否；刷新还原，导出原始案例 |
+| Blank（`?mode=blank`） | 首次打开为空 | 明确导入后只在当前浏览器暂存；需自行导出备份 |
 
-其中八个房间、64 个方向和三件预置的当月行动均由项目独立编写，属于虚构教学情境；它不是作者真实地图的脱敏版，也不是实际用户完成了行动的证据。可以用它体验两层九宫格和房间长卷：进入房间，点击一个方向，打开方向工作台，亲手修改已有文字或补入空白板块，再观察目标、反面校准和“输入 → 实践 → 输出 → 回看”怎样呈现。本月行动也能作为辅助路径试填。前进证据板块里的试填描述只是“怎样判断在前进”，不是已经完成的真人记录。所有试填只留在当前页面内存，刷新或重置后恢复原案例；“导出原始案例”导出的是原始虚构样本，**不包含试填内容**。Example 不会读取、覆盖或写入私人地图，也不会把试填存入浏览器。新用户的空白起点则使用：
-
-```text
-http://127.0.0.1:4178/monthly/?mode=blank
-```
-
-Blank 第一次打开时没有预设的生活答案。页面上的“复制给 Coding Agent”目前优先引导用户克隆仓库、运行 `./start`，再进入 Personal 的私人文件流程；它**不会**自动把 Personal 文件同步回 Blank。只有 agent 无法访问本地文件、因而交付了经用户确认的完整 JSON，或用户已有完整 JSON 时，才在 Blank 手工导入查看。导入后的内容只暂存在**当前浏览器**。刷新或再次打开同一浏览器可能继续看到它，但换设备、清理浏览器数据或改用其他浏览器都可能失去这份暂存，重要内容应自行导出 JSON。不要把浏览器暂存当作唯一正本。
-
-## 录制与试用这两个公开入口
-
-- **先看 Example**：从九宫格看到中心愿景、八个房间；切到房间长卷，进入一扇门；点击一个方向打开工作台，修改一个现有板块、补入一个空白板块，展示方向如何在房间与工作台同步变化；可再试填一件本月行动，最后刷新确认回到原始案例。镜头里应持续标明“虚构教学案例 · 试填不保存”，不要把示例记录或访客试填称为本人真实进展。
-- **再看 Blank**：从空白九宫格起步，并查看房间视图的空态；复制给 Coding Agent 进入本地 Personal 主路径。如果要示范无文件权限下的手工导入，只导入专门制作的虚构测试 JSON。录制结束时展示导出和“当前浏览器暂存”的边界，不录入私人地图、其他会话或真实健康、关系、财务内容。
-
-这两个入口演示的是“完成后的结构”与“开始时的状态”，不是同一个人的前后对照。录制前只以经审计的 [`docs/RECORDING-QA.md`](docs/RECORDING-QA.md) 和 [Flow 基线 JSON](docs/recording-flow-baseline-2026-09-19.json) 为检查清单；未经实际浏览器核验的转场、恢复和长期回流，不应在视频里宣称已经成功。
+三个入口共用一套界面，但数据严格隔离。公开仓库与部署只包含空白框架、虚构案例、Skill、Schema、代码和文档，不包含 `private/`。视频里可用 Example 展示“看全地图 → 推门进入房间 → 打开方向工作台 → 临时试填 → 刷新还原”，结尾再给观众 Prompt、Skill 与 Blank 链接。录制前请用 [`docs/RECORDING-QA.md`](docs/RECORDING-QA.md) 对照实际浏览器检查；不要宣称尚未验证的转场、恢复或长期回流已成功。
 
 ## 真正的闭环
 
@@ -96,8 +77,8 @@ clone
 
 Growing Me 先把地图做好，再连接更复杂的系统：
 
-1. **中心愿景与八个一级房间**：从用户原话形成彼此可区分的生活领域。
-2. **每个房间的第二层方向**：每块先形成 4–6 个高置信候选，经用户校准后最多八项。
+1. **中心愿景与最多八个一级房间**：从用户原话形成彼此可区分的生活领域。
+2. **每个房间的第二层方向**：先形成自然出现的少数高置信候选，经用户校准后最多八项。
 3. **全局自省**：检查遗漏、重叠、空泛词，以及指标、工具和项目是否占错层。
 4. **双视图与八种房间语法**：同一模式中的同一份数据同时进入两层九宫格和房间长卷；不同房间可以用登山路线、创作画廊、知识实验台、生命树、共同生活之书、账本与桥、生活收藏屋、关系相册等空间语法。
 5. **小规模运行层**：只选少量月度重点、行动和真实记录，不把 64 个方向变成 64 项打卡。
