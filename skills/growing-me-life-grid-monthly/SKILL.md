@@ -23,7 +23,7 @@ description: 用一次一个问题的访谈形成两层人生地图；无仓库�
 
 没有仓库访问权也可以直接开始访谈，在当前聊天里整理一份可复制、可带入后续会话的候选摘要，并说明它尚未持久化。此时不能声称网站已经同步，也不要凭空生成声称可导入的 JSON；只有取得完整当前地图与 Schema、经过用户确认后，才走完整 JSON 手工导入兜底。需要本地网站时，指导用户克隆公开仓库并运行 `./start`。
 
-公开 [Example](https://jianan-huang0609.github.io/growing-me-life-grid-starter/monthly/?mode=example&view=rooms) 是虚构教学案例：方向工作台和月度行动可在当前页面临时试填，刷新即还原；它不是用户私人地图。公开 Blank 是独立空白入口，导入后只在当前浏览器暂存，不是 Personal 文件或云端备份。不要把 Example、Blank 和 Personal 混作同一个人的前后状态。
+公开 [Example](https://jianan-huang0609.github.io/growing-me/monthly/?mode=example&view=rooms) 是虚构教学案例：方向工作台和月度行动可在当前页面临时试填，刷新即还原；它不是用户私人地图。公开 Blank 是独立空白入口，导入后只在当前浏览器暂存，不是 Personal 文件或云端备份。不要把 Example、Blank 和 Personal 混作同一个人的前后状态。
 
 ## 对话状态机
 

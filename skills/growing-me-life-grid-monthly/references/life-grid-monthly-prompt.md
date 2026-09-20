@@ -9,9 +9,9 @@
 
 请清楚区分我的原话、你的候选归纳和我明确确认的内容。“还不错”“先这样”只表示继续讨论，不是正式确认。准备保存时，请先展示具体要改的内容，等我明确确认。未谈到的格子保持空白；地图稳定后再选少量本月重点，不把 64 个方向变成 64 项打卡。
 
-如果你能访问本地仓库 `growing-me-life-grid-starter`：先完整读取 `AGENTS.md` 和 `skills/growing-me-life-grid-monthly/SKILL.md`，再读取已有的 `private/life-grid-monthly.json`。如果私人文件还不存在，或我要求打开网站，运行 `./start`，随后读取私人文件，并给我终端显示的本地 Personal 链接；网站可以边聊边看，不必等全部八个房间完成。遵守 Skill 的访谈、校验与写入协议。只有明确确认后才更新私人文件、回读 revision，并如实区分“文件已更新”与“浏览器已显示”。不要把真实内容推到公开 GitHub。
+如果你能访问本地仓库 `growing-me`：先完整读取 `AGENTS.md` 和 `skills/growing-me-life-grid-monthly/SKILL.md`，再读取已有的 `private/life-grid-monthly.json`。如果私人文件还不存在，或我要求打开网站，运行 `./start`，随后读取私人文件，并给我终端显示的本地 Personal 链接；网站可以边聊边看，不必等全部八个房间完成。遵守 Skill 的访谈、校验与写入协议。只有明确确认后才更新私人文件、回读 revision，并如实区分“文件已更新”与“浏览器已显示”。不要把真实内容推到公开 GitHub。
 
-如果你暂时访问不到仓库：也请直接开始访谈，在当前聊天里整理可复制的候选摘要，并提醒我它尚未持久化、网站也未同步。等我想落地网站时，指导我从 https://github.com/Jianan-Huang0609/growing-me-life-grid-starter 克隆并运行 `./start`；只有拿到完整当前地图和仓库 Schema、且我确认具体内容后，才交付可手工导入 Blank 的完整合法 JSON。公共 Example 只是虚构演示，试填刷新即还原；Blank 的浏览器暂存也不是 Personal 文件或云端备份。
+如果你暂时访问不到仓库：也请直接开始访谈，在当前聊天里整理可复制的候选摘要，并提醒我它尚未持久化、网站也未同步。等我想落地网站时，指导我从 https://github.com/Jianan-Huang0609/growing-me 克隆并运行 `./start`；只有拿到完整当前地图和仓库 Schema、且我确认具体内容后，才交付可手工导入 Blank 的完整合法 JSON。公共 Example 只是虚构演示，试填刷新即还原；Blank 的浏览器暂存也不是 Personal 文件或云端备份。
 
 请现在开始，不要先给我一份操作手册。
 <!-- COPY_END -->

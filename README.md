@@ -4,21 +4,21 @@ Growing Me 把多轮对话和可视化地图放在同一个开源仓库里：AI 
 
 ## 公开入口：先选一条路径
 
-- [Growing Me 开始页](https://jianan-huang0609.github.io/growing-me-life-grid-starter/)——选择演示、复制 Prompt、下载 Skill 或打开空白起点；根页不再自动跳到案例。
-- [打开完整 Example：房间长卷](https://jianan-huang0609.github.io/growing-me-life-grid-starter/monthly/?mode=example&view=rooms)——录视频建议直接用这个链接，不需要克隆。八个房间与长期方向是独立编写的**虚构教学案例**，不是作者真实数据的脱敏版。
-- [打开 Blank：新用户的空白起点](https://jianan-huang0609.github.io/growing-me-life-grid-starter/monthly/?mode=blank&view=grid)——这是另一条独立链接，不会把 Example 的内容带进来。
+- [Growing Me 开始页](https://jianan-huang0609.github.io/growing-me/)——选择演示、复制 Prompt、下载 Skill 或打开空白起点；根页不再自动跳到案例。
+- [打开完整 Example：房间长卷](https://jianan-huang0609.github.io/growing-me/monthly/?mode=example&view=rooms)——录视频建议直接用这个链接，不需要克隆。八个房间与长期方向是独立编写的**虚构教学案例**，不是作者真实数据的脱敏版。
+- [打开 Blank：新用户的空白起点](https://jianan-huang0609.github.io/growing-me/monthly/?mode=blank&view=grid)——这是另一条独立链接，不会把 Example 的内容带进来。
 
 Example 可以从长廊推门进入房间，点击一个方向打开工作台，临时修改目标、反面校准、输入、实践、输出、前进证据描述与回看，也可试填本月行动。修改只在当前页面可见：**刷新或重置即还原；导出仍是原始虚构案例，不包含试填。** 这适合展示交互，不是长期保存个人地图的入口，也不能把示例记录当作真实进展。
 
 ## 开始自己的地图：Prompt + Skill + 本地网站
 
-想直接拿给 coding agent 试，可以在[开始页](https://jianan-huang0609.github.io/growing-me-life-grid-starter/)复制 Prompt，或阅读 [Prompt 原文](skills/growing-me-life-grid-monthly/references/life-grid-monthly-prompt.md)；想看完整访谈与安全写入规则，读 [Growing Me Skill](skills/growing-me-life-grid-monthly/SKILL.md)，或[下载完整 Skill 包](https://jianan-huang0609.github.io/growing-me-life-grid-starter/downloads/growing-me-life-grid-monthly-skill.zip)。Prompt 是对话入口，Skill 是访谈与写入规则；它们不会仅凭一段聊天自动把内容保存到公开 Example。
+想直接拿给 coding agent 试，可以在[开始页](https://jianan-huang0609.github.io/growing-me/)复制 Prompt，或阅读 [Prompt 原文](skills/growing-me-life-grid-monthly/references/life-grid-monthly-prompt.md)；想看完整访谈与安全写入规则，读 [Growing Me Skill](skills/growing-me-life-grid-monthly/SKILL.md)，或[下载完整 Skill 包](https://jianan-huang0609.github.io/growing-me/downloads/growing-me-life-grid-monthly-skill.zip)。Prompt 是对话入口，Skill 是访谈与写入规则；它们不会仅凭一段聊天自动把内容保存到公开 Example。
 
 要让自己确认的地图持续保存在本机，并边聊边更新本地网站，在终端运行：
 
 ```bash
-git clone https://github.com/Jianan-Huang0609/growing-me-life-grid-starter.git
-cd growing-me-life-grid-starter
+git clone https://github.com/Jianan-Huang0609/growing-me.git
+cd growing-me
 ./start
 ```
 
