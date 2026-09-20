@@ -15,10 +15,10 @@ Public source may contain only the blank template, fictional demonstrations, Ski
 Maintain one UI engine and one data contract. Do not fork the product into three codebases or let one mode silently fall through to another mode's data source. These are independent user-facing entries, not tabs in one page: do not add a prominent global mode switch merely because the renderer is shared.
 
 - `?mode=personal` is the local private workflow. `private/life-grid-monthly.json` is its only authority, and the website is a read-only projection. The coding agent may update that file only through the confirmation and revision protocol below.
-- `?mode=example` is a complete, fictional, public-safe teaching case. It is read-only, must not request or read the private API, and must not persist edits as personal data.
+- `?mode=example` is a complete, fictional, public-safe teaching case. Its source JSON, rooms, and direction identities stay fixed. Visitors may temporarily edit or fill each existing direction workbench's goal, anti-vision, input, practice, output, evidence-description, and review fields; adding or editing monthly actions is a supporting trial path. These edits change only the current page's in-memory view. Refresh and reset restore the original fictional sample. Example must not request or read the private API, write any localStorage key or other persistent store, or modify the private file. Export the original sample, never trial edits. Do not present a trial evidence description as a real completed record.
 - `?mode=blank` starts strictly empty for a first-time visitor. Empty cells remain visibly empty; do not backfill them with example cards or inferred content. After the user explicitly imports a map, this entry may save and restore that map only in its dedicated starter localStorage key so the user can keep using the blank-start version.
 
-Mode changes may reuse rendering code, but data is isolated. `example` must never use private or browser-persisted personal data. `blank` must never read the private API/file, Example data, Personal localStorage, or another mode's in-memory state; it may read only its own starter storage after an explicit user import. Starter storage is not cloud sync, cross-device backup, or the authoritative Personal private file. Tell users to export important changes.
+Mode changes may reuse rendering code, but data is isolated. `example` must never use private or browser-persisted personal data; label direction-workbench and monthly-action trials as temporary and explain that refresh discards edits. `blank` must never read the private API/file, Example data, Personal localStorage, or another mode's in-memory state; it may read only its own starter storage after an explicit user import. Starter storage is not cloud sync, cross-device backup, or the authoritative Personal private file. Tell Blank users to export important changes.
 
 The complete Example is the current public-review priority. Keep it self-contained: it must not carry a Blank-template call to action inside the experience or interrupt the fictional case with setup choices.
 
@@ -75,7 +75,7 @@ This proves structural readability only. It does not prove that the content refl
 Before calling a revision shareable, minimally verify all three modes independently:
 
 1. `personal` reads the valid private file, preserves the last valid view on invalid input, recovers after repair, and never writes from the browser.
-2. `example` shows one complete fictional map and its direction workbenches without contacting the private API or personal persistence.
+2. `example` shows one complete fictional map; in a room's direction workbench, a visitor can edit or fill goal, anti-vision, input, practice, output, evidence-description, and review fields in page memory. Monthly actions can also be tried. Refresh/reset restores the original sample, export contains the original sample, and no private API or persistent storage is touched.
 3. `blank` opens as a genuinely empty map for a new browser profile; after an explicit import, it restores only its own starter map and never reveals Example or Personal content.
 4. Switching or reloading modes does not leak data across them.
 5. Import/export, keyboard access, mobile layout, Skill packaging, and a public build without `private/` are checked separately.
