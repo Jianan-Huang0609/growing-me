@@ -1760,6 +1760,8 @@ body.room-is-open { overflow: hidden; }
   .grid-card { min-height: 134px; padding: 12px 8px; border-radius: 12px 4px 14px 5px; }
   .grid-card::after { inset: 4px; }
   .grid-card h3 { margin-bottom: 4px; font-size: 15px; line-height: 1.35; }
+  .grid-card.is-center { min-height: 160px; }
+  .grid-card.is-center h3 { font-size: 15px; line-height: 1.35; }
   .grid-card p { display: none; }
   .grid-index { margin-bottom: 8px; font-size: 10px; }
   .card-foot { padding-top: 8px; font-size: 10px; line-height: 1.3; }
