@@ -783,6 +783,9 @@ h3 { line-height: 1.35; }
 .corridor-outro-revisit { min-height: 44px; padding: 8px 0; border: 0; border-bottom: 1px solid rgba(238,231,216,.36); color: rgba(238,231,216,.85); background: transparent; cursor: pointer; }
 .corridor-outro-revisit:hover { color: #fffaf0; border-color: #d5b77e; }
 .corridor-outro-revisit span { margin-left: 8px; color: #d5b77e; }
+.corridor-outro-start { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 0; border-bottom: 1px solid #d5b77e; color: #e8ce94; text-decoration: none; font-weight: 600; }
+.corridor-outro-start:hover { color: #fff4d5; }
+.corridor-outro-start span { margin-left: 8px; }
 .corridor-outro-threshold { position: relative; z-index: 2; display: grid; justify-items: center; align-content: center; min-height: 550px; }
 .corridor-outro-threshold::before { content: ""; position: absolute; left: 50%; bottom: 38px; width: min(470px,100%); height: 22px; border-radius: 50%; background: rgba(0,8,6,.48); filter: blur(16px); transform: translateX(-50%); }
 .corridor-outro-arch { position: relative; width: min(100%,340px); aspect-ratio: .68; overflow: hidden; border: 12px solid #9f8559; border-bottom-width: 8px; border-radius: 47% 47% 2px 2px / 19% 19% 2px 2px; background: #071b15; box-shadow: 0 25px 55px rgba(2,15,11,.45), 0 0 0 1px rgba(226,192,127,.23), inset 0 0 0 4px rgba(13,37,28,.95); }
@@ -1529,6 +1532,8 @@ body.room-is-open { overflow: hidden; }
 .dialog { width: min(680px, calc(100% - 24px)); max-height: calc(100vh - 32px); padding: 0; border: 0; border-radius: 28px 10px 24px 12px; color: var(--ink); background: var(--paper-light); box-shadow: 0 30px 100px rgba(0,0,0,.35); }
 .dialog::backdrop { background: rgba(12,24,20,.62); backdrop-filter: blur(5px); }
 .dialog-card { padding: 28px; }
+.prompt-preview-dialog .dialog-card { max-height: calc(100vh - 32px); overflow: auto; }
+#promptPreviewText { min-height: 250px; resize: vertical; white-space: pre-wrap; }
 .dialog-head { display: flex; justify-content: space-between; gap: 20px; }
 .dialog-head h2 { font-size: 34px; }
 .close-button { width: 40px; height: 40px; border-radius: 50%; font-size: 24px; }
